@@ -1,5 +1,5 @@
 <h1>Login form</h1>
-<form [formGroup]="loginform" (ngSubmit)="onSubmit()">
+<form [formGroup]="loginform">
 <div>
     <label>Email address</label>
     <input class="form-control" type="email" placeholder="Enter email id" formControlName="email">
@@ -13,5 +13,5 @@
 </form>
 
 <div>
-<button (click)="onSubmit()" type="submit" class="btn btn-primary">Submit</button>
+<button (click)="addLogin()" type="submit" class="btn btn-primary">Login</button>
 </div>
