@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiService } from '../shared/api.service';
-import { Login } from '../login.model';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -9,39 +10,39 @@ import { Login } from '../login.model';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  loginObj: Login = new Login;
-  loginform!:FormGroup;
-  constructor(private fb:FormBuilder, private api:ApiService) { }
+
+  loginform!: FormGroup;
+  constructor(private fb: FormBuilder, private api: ApiService, private router: Router) { }
 
   ngOnInit(): void {
-    this.loginform=this.fb.group({
-      email:[''],
-      password:['']
+    this.loginform = this.fb.group({
+      email: [''],
+      password: ['']
     })
 
-   
-  }
-  addLogin(){
-    this.loginObj.email = this.loginform.value.email;
-    this.loginObj.password = this.loginform.value.password;
-    this.api.postLoginData(this.loginObj).subscribe({next:(v)=>{
-      console.log(v);
-      
-    },
-  error:(e)=>{
-    console.log(e);
-    alert("Error in posting data")
-  },
-  complete:()=>{
-    console.log("Completed");
-    alert("Logged in")
-    this.loginform.reset()
-    
-  }
 
-  
-  
-  })
+  }
+  Login(loginData: any) {
+    console.log("login data is", loginData);
+
+    const Data = {
+      email: loginData.value.email,
+      password: loginData.value.password
+    }
+
+    this.api.loginData(Data).subscribe((res: any) => {
+      console.log(res);
+      if (res.message == "login succefully") {
+        alert("Logged in")
+        this.router.navigateByUrl("/list")
+
+      } else {
+        alert("User not found")
+      }
+
+    }, (err) => {
+      alert("Error logging in"+err)
+    })
 
   }
 }

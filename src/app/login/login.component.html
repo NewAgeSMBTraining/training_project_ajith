@@ -1,17 +1,17 @@
 <h1>Login form</h1>
 <form [formGroup]="loginform">
-<div>
-    <label>Email address</label>
-    <input class="form-control" type="email" placeholder="Enter email id" formControlName="email">
-</div>
+    <div>
+        <label>Email address</label>
+        <input class="form-control" type="email" placeholder="Enter email id" formControlName="email">
+    </div>
 
-<div>
-    <label>Password</label>
-    <input class="form-control" type="password" placeholder="Enter password" formControlName="password">
-</div>
+    <div>
+        <label>Password</label>
+        <input class="form-control" type="password" placeholder="Enter password" formControlName="password">
+    </div>
 
 </form>
 
 <div>
-<button (click)="addLogin()" type="submit" class="btn btn-primary">Login</button>
+    <button (click)="Login(loginform)" type="submit" class="btn btn-primary">Login</button>
 </div>
