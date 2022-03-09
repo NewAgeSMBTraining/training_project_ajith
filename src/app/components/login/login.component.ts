@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ApiService } from '../shared/api.service';
+import { ApiService } from '../../shared/api.service';
 import { Router } from '@angular/router';
 
 
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  
+
   loginform!: FormGroup;
   constructor(private fb: FormBuilder, private api: ApiService, private router: Router) { }
 
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
 
     this.api.loginData(Data).subscribe((res: any) => {
       console.log(res);
-      localStorage.setItem('Authorization','Bearer ' + res.data.token)
+      localStorage.setItem('Authorization', 'Bearer ' + res.data.token)
       if (res.message == "Login success") {
         alert("Logged in")
         this.router.navigateByUrl("/list")
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
       }
 
     }, (err) => {
-      alert("Error logging in"+err)
+      alert("Error logging in" + err)
     })
 
   }
