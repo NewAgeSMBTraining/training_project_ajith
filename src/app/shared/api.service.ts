@@ -30,14 +30,14 @@ export class ApiService {
         })))
   }
   signupData(data: any) {
-    return this.httpclient.post<any>("http://web.newagesme.com:3636/user", data, { headers: this.header }).pipe(
+    return this.httpclient.post<any>("http://web.newagesme.com:3636/user",data,{headers:this.header}).pipe(
       map(
         (res => {
           return res
         })))
   }
   getList() {
-    return this.httpclient.get<any>("http://web.newagesme.com:3636/user", { headers: this.header }).pipe(
+    return this.httpclient.get<any>("http://web.newagesme.com:3636/user",{headers:this.header}).pipe(
       map(
         (res) => {
           return res.data.users
@@ -45,14 +45,14 @@ export class ApiService {
   }
   editList(data: any, id: number) {
 
-    return this.httpclient.put<any>("http://web.newagesme.com:3636/user/" + id, data, { headers: this.header }).pipe(
+    return this.httpclient.put<any>("http://web.newagesme.com:3636/user/"+id,data,{headers:this.header}).pipe(
       map(
         (res) => {
           return res
         }))
   }
   deleteList(id: number) {
-    return this.httpclient.delete<any>("http://web.newagesme.com:3636/user/" + id, { headers: this.header }).pipe(
+    return this.httpclient.delete<any>("http://web.newagesme.com:3636/user/"+id, {headers:this.header}).pipe(
       map(
         (res) => {
           return res
