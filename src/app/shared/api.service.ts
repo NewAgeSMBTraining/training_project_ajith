@@ -23,7 +23,7 @@ export class ApiService {
 
 
   loginData(request: Login) {
-    return this.httpclient.post<any>("http://web.newagesme.com:3636/auth/local", request,).pipe(
+    return this.httpclient.post<any>("http://web.newagesme.com:3636/auth/local",request,).pipe(
       map(
         (res => {
           return res
@@ -58,6 +58,22 @@ export class ApiService {
           return res
         }))
   }
-}
+  loggedinDetails(){
+    return this.httpclient.get<any>("http://web.newagesme.com:3636/user/me",{headers:this.header}).pipe(
+      map(
+        (res) => {
+          return res.data.user
+        }))
+  }
+  updateLoggedinDetails(data:any){
+    return this.httpclient.put<any>("http://web.newagesme.com:3636/user/me",data,{headers:this.header}).pipe(
+      map(
+        (res) => {
+          return res
+        }))
+  }
+
+  }
+
 
 

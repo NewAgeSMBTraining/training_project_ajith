@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../shared/api.service';
 import { FormBuilder } from '@angular/forms';
 import { Signup } from '../../model/signup.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee-list',
@@ -13,7 +14,7 @@ export class EmployeeListComponent implements OnInit {
   employeeList: any = [];
   employeeobj: Signup = new Signup
 
-  constructor(private api: ApiService, private fb: FormBuilder) { }
+  constructor(private api: ApiService, private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     this.employeedata()
@@ -57,13 +58,10 @@ export class EmployeeListComponent implements OnInit {
         alert("User data added")
         this.employeedata();
         this.signupData.reset()
-
       }
 
-
-
     }, (err) => {
-      alert("Error in sending data" + err)
+      alert("Error in adding data" + err)
     })
 
   }
@@ -77,7 +75,7 @@ export class EmployeeListComponent implements OnInit {
     this.signupData.controls["phone"].setValue(data.phone)
     this.signupData.controls["password"].setValue(data.password)
     this.employeeobj.id = data.id;
-    
+
   }
   updatedata() {
 
@@ -104,16 +102,16 @@ export class EmployeeListComponent implements OnInit {
       if (res.message == "Deleted") {
         alert("User data deleted")
         this.employeedata();
-
       }
-
-
-
     }, (err) => {
-      alert("Error in sending data" + err)
+      alert("Error in deleting data" + err)
     })
-
-
-
   }
+
+  logout(){
+    localStorage.clear()
+    alert("Logged out")
+    this.router.navigateByUrl('/login')
+  }
+
 }

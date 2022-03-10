@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
     this.api.loginData(Data).subscribe((res: any) => {
       console.log(res);
       localStorage.setItem('Authorization', 'Bearer ' + res.data.token)
+      // localStorage.setItem('Data', JSON.stringify(res.data.user))
       if (res.message == "Login success") {
         alert("Logged in")
         this.router.navigateByUrl("/list")

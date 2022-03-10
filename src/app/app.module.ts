@@ -9,14 +9,18 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { EmployeeListComponent } from './components/employee-list/employee-list.component'
+import { EmployeeListComponent } from './components/employee-list/employee-list.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { MyProfileComponent } from './components/my-profile/my-profile.component'
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    EmployeeListComponent
+    EmployeeListComponent,
+    DashboardComponent,
+    MyProfileComponent
   ],
   imports: [
     BrowserModule,
