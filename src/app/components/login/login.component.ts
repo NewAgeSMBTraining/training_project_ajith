@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
       }
 
     }, (err) => {
-      alert("Error logging in" + err)
+      alert(err.error.message)
     })
 
   }

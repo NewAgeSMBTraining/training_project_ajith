@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../shared/api.service';
-import { FormBuilder } from '@angular/forms';
-import { Signup } from '../../model/signup.model';
+import { FormBuilder, Validators } from '@angular/forms';
+import { AddUser } from '../../model/adduser.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class EmployeeListComponent implements OnInit {
 
   employeeList: any = [];
-  employeeobj: Signup = new Signup
+  employeeobj: AddUser = new AddUser
 
   constructor(private api: ApiService, private fb: FormBuilder, private router: Router) { }
 
@@ -20,15 +20,15 @@ export class EmployeeListComponent implements OnInit {
     this.employeedata()
   }
 
-  signupData = this.fb.group({
+  userData = this.fb.group({
     id: [''],
     role_id: [''],
-    first_name: [''],
-    last_name: [''],
-    email: [''],
+    first_name: ['',Validators.required],
+    last_name: ['',Validators.required],
+    email: ['',[Validators.required, Validators.email]],
     phone_code: [''],
-    phone: [''],
-    password: ['']
+    phone: ['',[Validators.required,Validators.pattern('[0-9]{10}')]],
+    password: ['',[Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)]],
 
   })
   employeedata() {
@@ -39,52 +39,52 @@ export class EmployeeListComponent implements OnInit {
   }
 
 
-  signUp(signupData: any) {
-    console.log("sign up data is", signupData);
+   user(userData: any) {
+    console.log("user data data is", userData);
 
     const data = {
-      role_id: signupData.value.role_id,
-      first_name: signupData.value.first_name,
-      last_name: signupData.value.last_name,
-      email: signupData.value.email,
-      phone_code: signupData.value.phone_code,
-      phone: signupData.value.phone,
-      password: signupData.value.password
+      role_id: userData.value.role_id,
+      first_name: userData.value.first_name,
+      last_name: userData.value.last_name,
+      email: userData.value.email,
+      phone_code: userData.value.phone_code,
+      phone: userData.value.phone,
+      password: userData.value.password
     }
 
-    this.api.signupData(data).subscribe((res: any) => {
+     this.api.addUserData(data).subscribe((res: any) => {
       console.log(res);
       if (res.message == "Created") {
         alert("User data added")
         this.employeedata();
-        this.signupData.reset()
+        this.userData.reset()
       }
 
     }, (err) => {
-      alert("Error in adding data" + err)
+      alert("Error in adding data" + err.error.message)
     })
 
   }
 
   editdata(data: any) {
-    this.signupData.controls["role_id"].setValue(data.role_id)
-    this.signupData.controls["first_name"].setValue(data.first_name)
-    this.signupData.controls["last_name"].setValue(data.last_name)
-    this.signupData.controls["email"].setValue(data.email)
-    this.signupData.controls["phone_code"].setValue(data.phone_code)
-    this.signupData.controls["phone"].setValue(data.phone)
-    this.signupData.controls["password"].setValue(data.password)
+    this.userData.controls["role_id"].setValue(data.role_id)
+    this.userData.controls["first_name"].setValue(data.first_name)
+    this.userData.controls["last_name"].setValue(data.last_name)
+    this.userData.controls["email"].setValue(data.email)
+    this.userData.controls["phone_code"].setValue(data.phone_code)
+    this.userData.controls["phone"].setValue(data.phone)
+    this.userData.controls["password"].setValue(data.password)
     this.employeeobj.id = data.id;
 
   }
   updatedata() {
 
-    this.employeeobj.role_id = this.signupData.value.role_id;
-    this.employeeobj.first_name = this.signupData.value.first_name;
-    this.employeeobj.last_name = this.signupData.value.last_name;
-    this.employeeobj.email = this.signupData.value.email;
-    this.employeeobj.phone_code = this.signupData.value.phone_code;
-    this.employeeobj.phone = this.signupData.value.phone;
+    this.employeeobj.role_id = this.userData.value.role_id;
+    this.employeeobj.first_name = this.userData.value.first_name;
+    this.employeeobj.last_name = this.userData.value.last_name;
+    this.employeeobj.email = this.userData.value.email;
+    this.employeeobj.phone_code = this.userData.value.phone_code;
+    this.employeeobj.phone = this.userData.value.phone;
 
     this.api.editList(this.employeeobj, this.employeeobj.id).subscribe((res) => {
       console.log(res);
@@ -93,6 +93,8 @@ export class EmployeeListComponent implements OnInit {
         this.employeedata();
 
       }
+    },(err)=>{
+      alert("Error in updating data" + err.error.message)
     })
 
   }
@@ -104,7 +106,7 @@ export class EmployeeListComponent implements OnInit {
         this.employeedata();
       }
     }, (err) => {
-      alert("Error in deleting data" + err)
+      alert("Error in deleting data" + err.error.message)
     })
   }
 

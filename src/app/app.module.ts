@@ -11,7 +11,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { EmployeeListComponent } from './components/employee-list/employee-list.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { MyProfileComponent } from './components/my-profile/my-profile.component'
+import { MyProfileComponent } from './components/my-profile/my-profile.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component'
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { MyProfileComponent } from './components/my-profile/my-profile.component
     LoginComponent,
     EmployeeListComponent,
     DashboardComponent,
-    MyProfileComponent
+    MyProfileComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

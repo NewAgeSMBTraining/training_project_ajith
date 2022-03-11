@@ -1,4 +1,4 @@
-export class Signup {
+export class AddUser {
     id: number = 0;
     role_id!: number;
     first_name!: string;
@@ -18,4 +18,10 @@ export class LogUser{
     phone_code!:string;
     phone!:string;
     
+}
+
+export class ChangePassword{
+    password!:string;
+    confirm_password!:string;
+    old_password!:string;
 }

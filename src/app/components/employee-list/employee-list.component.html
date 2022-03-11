@@ -1,12 +1,13 @@
 <div class="dropdown; float-end">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-    
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+    aria-expanded="false">
+
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
     <li><a class="dropdown-item" href="/profile">My Profile</a></li>
     <li><a (click)="logout()" class="dropdown-item" href="#">Logout</a></li>
     <!-- <li><a class="dropdown-item" href="#">Edit profile</a></li> -->
-    
+
   </ul>
 </div>
 <h3>Employee details</h3>
@@ -24,9 +25,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr  *ngFor="let employee of employeeList">
+    <tr *ngFor="let employee of employeeList">
       <td>{{employee.id}}</td>
-      <td>{{employee.role_id}}</td>
+      <td>{{employee.role.name}}</td>
       <td>{{employee.full_name}}</td>
       <td>{{employee.email}}</td>
       <td>{{employee.phone}}</td>
@@ -61,26 +62,58 @@
         </button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="signupData">
+        <form [formGroup]="userData">
+         
           <!--Role id-->
+          <!-- <div class="mb-3">
+          <label for="role_id" class="form-label">Role ID</label>
+          <input type="string" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..."
+            formControlName="role_id">
+          <datalist id="datalistOptions">
+            <option value=1>
+            <option value=2>
+
+          </datalist>
+        </div> -->
           <div class="mb-3">
-            <label>Role ID</label>
-            <input class="form-control" type="number" placeholder="Enter role id" formControlName="role_id">
-          </div>
+            <label for = "role_id">Role ID</label>
+            
+            <input class="form-control"  type="number" placeholder="Enter your role id" formControlName="role_id">
+            </div>
+
           <!--First name-->
           <div class="mb-3">
             <label>First name</label>
-            <input class="form-control" type="email" placeholder="Enter your first name" formControlName="first_name">
+            <input class="form-control" id="first_name" name="first_name" type="text"
+              placeholder="Enter your first name" formControlName="first_name">
+            <span class="text-danger"
+              *ngIf="userData.controls['first_name'].dirty && userData.controls['first_name'].touched && userData.hasError('required','first_name')">First
+              name is required
+            </span>
           </div>
           <!--Last name-->
           <div class="mb-3">
             <label>Last name</label>
-            <input class="form-control" type="text" placeholder="Enter your last name" formControlName="last_name">
+            <input class="form-control" id="last_name" name="last_name" type="text" placeholder="Enter your last name"
+              formControlName="last_name">
+            <span class="text-danger"
+              *ngIf="userData.controls['last_name'].dirty && userData.controls['last_name'].touched && userData.hasError('required','last_name')">Last
+              name is required
+            </span>
           </div>
           <!--Email-->
           <div class="mb-3">
             <label>Email</label>
-            <input class="form-control" type="text" placeholder="Enter email" formControlName="email">
+            <input class="form-control" id="email" name="email" type="text" placeholder="Enter email"
+              formControlName="email">
+            <span class="text-danger"
+              *ngIf="userData.controls['email'].dirty && userData.controls['email'].touched && userData.hasError('required','email')">Email
+              is required
+            </span>
+            <span class="text-danger"
+              *ngIf="userData.controls['email'].dirty && userData.controls['email'].touched && userData.hasError('email','email')">Email
+              format is not correct
+            </span>
           </div>
           <!--Phone code-->
           <div class="mb-3">
@@ -90,19 +123,38 @@
           <!--Phone number-->
           <div class="mb-3">
             <label>Phone number</label>
-            <input class="form-control" type="text" placeholder="Enter phone number" formControlName="phone">
+            <input class="form-control" id="phone" name="phone" type="text" placeholder="Enter phone number"
+              formControlName="phone">
+            <span class="text-danger"
+              *ngIf="userData.controls['phone'].dirty && userData.controls['phone'].touched && userData.hasError('required','phone')">Phone
+              number is required
+            </span>
+            <span class="text-danger"
+              *ngIf="userData.controls['phone'].dirty && userData.controls['phone'].touched && userData.hasError('pattern','phone')">Phone
+              number should be 10 digits
+            </span>
           </div>
           <!--Password-->
           <div class="mb-3">
             <label>Password</label>
-            <input class="form-control" type="password" placeholder="Enter password" formControlName="password">
+            <input class="form-control" id="password" name="password" type="password" placeholder="Enter password"
+              formControlName="password">
+            <span class="text-danger"
+              *ngIf="userData.controls['password'].dirty && userData.controls['password'].touched && userData.hasError('required','password')">Password
+              is required
+            </span>
+            <span class="text-danger"
+              *ngIf="userData.controls['password'].dirty && userData.controls['password'].touched && userData.hasError('pattern','password')">Password
+              must contain minimum
+              eight characters, atleast one letter, one number and one special character
+            </span>
           </div>
 
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" (click)="signUp(signupData)" class="btn btn-primary">Add</button>
+        <button type="button" [disabled]="!userData.valid" (click)="user(userData)" class="btn btn-primary">Add</button>
 
       </div>
     </div>
@@ -121,7 +173,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="signupData">
+        <form [formGroup]="userData">
           <!--Role id-->
           <div class="mb-3">
             <label>Role ID</label>

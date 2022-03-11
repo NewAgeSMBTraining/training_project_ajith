@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/shared/api.service';
 import { FormBuilder } from '@angular/forms';
-import { LogUser } from 'src/app/model/signup.model';
+import { LogUser } from 'src/app/model/adduser.model';
 
 @Component({
   selector: 'app-my-profile',
@@ -73,6 +73,7 @@ updatelist() {
   })
 
 }
+
 
 
 }

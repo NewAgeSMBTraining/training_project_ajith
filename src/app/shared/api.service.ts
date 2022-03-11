@@ -9,9 +9,12 @@ import { Login } from '../model/login.model';
 export class ApiService {
 
   request!: Login[];
-  header = new HttpHeaders({
+  
+ 
+header = new HttpHeaders({
     // "Authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uSWQiOiI2MjI2ZjEwM2U2M2VjNDA4NjNhYzAyYzUiLCJ1c2VySWQiOjEsImlhdCI6MTY0NjcxOTIzNSwiZXhwIjoxNjQ2ODA1NjM1fQ.LR_-ZcW1h8Qdwm_8LdU4O-0g9H55JtOH-raHT2KaVyk"
     "Authorization": localStorage.getItem('Authorization') || ""
+    
   })
 
 
@@ -29,7 +32,7 @@ export class ApiService {
           return res
         })))
   }
-  signupData(data: any) {
+  addUserData(data: any) {
     return this.httpclient.post<any>("http://web.newagesme.com:3636/user",data,{headers:this.header}).pipe(
       map(
         (res => {
@@ -37,7 +40,7 @@ export class ApiService {
         })))
   }
   getList() {
-    return this.httpclient.get<any>("http://web.newagesme.com:3636/user",{headers:this.header}).pipe(
+    return this.httpclient.get<any>("http://web.newagesme.com:3636/user?&populate=%5B%22role%22%5D",{headers:this.header}).pipe(
       map(
         (res) => {
           return res.data.users
@@ -72,8 +75,17 @@ export class ApiService {
           return res
         }))
   }
+  changeUserPassword(data:any){
+    return this.httpclient.put<any>("http://web.newagesme.com:3636/user/password",data,{headers:this.header}).pipe(
+      map(
+        (res) => {
+          return res
+        }))
+  }
 
   }
+
+  
 
 
 
