@@ -10,16 +10,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./employee-list.component.scss']
 })
 export class EmployeeListComponent implements OnInit {
-
+  
   employeeList: any = [];
+  roles:any=[];
   employeeobj: AddUser = new AddUser
 
-  constructor(private api: ApiService, private fb: FormBuilder, private router: Router) { }
+  constructor(private api: ApiService, private fb: FormBuilder, private router: Router) {
+   
+   }
 
   ngOnInit(): void {
     this.employeedata()
   }
-
+  page:any;
   userData = this.fb.group({
     id: [''],
     role_id: [''],
@@ -38,6 +41,13 @@ export class EmployeeListComponent implements OnInit {
     })
   }
 
+  roledata(){
+    this.api.getRoles().subscribe(res=>{
+      console.log(res);
+      this.roles=res.data.roles;
+      return this.roles;
+    })
+  }
 
    user(userData: any) {
     console.log("user data data is", userData);

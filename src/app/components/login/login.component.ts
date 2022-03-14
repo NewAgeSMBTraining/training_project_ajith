@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../shared/api.service';
 import { Router } from '@angular/router';
 
@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginform = this.fb.group({
-      username: [''],
-      password: ['']
+      username: ['',[Validators.required, Validators.email]],
+      password: ['', Validators.required]
     })
 
 

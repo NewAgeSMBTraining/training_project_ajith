@@ -11,10 +11,11 @@ export class ApiService {
   request!: Login[];
   
  
+ 
 header = new HttpHeaders({
     // "Authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uSWQiOiI2MjI2ZjEwM2U2M2VjNDA4NjNhYzAyYzUiLCJ1c2VySWQiOjEsImlhdCI6MTY0NjcxOTIzNSwiZXhwIjoxNjQ2ODA1NjM1fQ.LR_-ZcW1h8Qdwm_8LdU4O-0g9H55JtOH-raHT2KaVyk"
     "Authorization": localStorage.getItem('Authorization') || ""
-    
+   
   })
 
 
@@ -23,7 +24,7 @@ header = new HttpHeaders({
 
   }
 
-
+  // 
 
   loginData(request: Login) {
     return this.httpclient.post<any>("http://web.newagesme.com:3636/auth/local",request,).pipe(
@@ -40,11 +41,19 @@ header = new HttpHeaders({
         })))
   }
   getList() {
-    return this.httpclient.get<any>("http://web.newagesme.com:3636/user?&populate=%5B%22role%22%5D",{headers:this.header}).pipe(
+    return this.httpclient.get<any>("http://web.newagesme.com:3636/user?offset=0&limit=-1&populate=%5B%22role%22%5D",{headers:this.header}).pipe(
       map(
         (res) => {
           return res.data.users
         }))
+  }
+
+  getRoles(){
+    return this.httpclient.get<any>("http://web.newagesme.com:3636/role",{headers:this.header}).pipe(
+      map(
+        (res => {
+          return res
+        })))
   }
   editList(data: any, id: number) {
 
@@ -85,7 +94,7 @@ header = new HttpHeaders({
 
   }
 
-  
+   
 
 
 

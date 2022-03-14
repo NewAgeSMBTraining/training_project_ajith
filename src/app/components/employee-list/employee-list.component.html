@@ -25,7 +25,8 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let employee of employeeList">
+    
+    <tr *ngFor="let employee of employeeList | paginate: {itemsPerPage:5, currentPage:page}">
       <td>{{employee.id}}</td>
       <td>{{employee.role.name}}</td>
       <td>{{employee.full_name}}</td>
@@ -35,14 +36,11 @@
         <button (click)="editdata(employee)" style="margin: 5px;" type="button" class="btn btn-warning"
           data-bs-toggle="modal" data-bs-target="#exampleModal1">Edit</button>
         <button (click)="deletedata(employee)" style="margin: 5px;" type="button" class="btn btn-danger">Delete</button>
-
-
       </td>
-
-
     </tr>
   </tbody>
 </table>
+<pagination-controls (pageChange)="page = $event" class="float-end"></pagination-controls>
 <!-- Button trigger modal -->
 <div class="text-center ">
   <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -67,7 +65,7 @@
           <!--Role id-->
           <!-- <div class="mb-3">
           <label for="role_id" class="form-label">Role ID</label>
-          <input type="string" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..."
+          <input type="number" min="1" max="2" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..."
             formControlName="role_id">
           <datalist id="datalistOptions">
             <option value=1>
@@ -75,12 +73,18 @@
 
           </datalist>
         </div> -->
-          <div class="mb-3">
+          <!-- <div class="mb-3">
             <label for = "role_id">Role ID</label>
             
             <input class="form-control"  type="number" placeholder="Enter your role id" formControlName="role_id">
-            </div>
-
+            </div> -->
+            <div class="mb-3">
+            <label >Role_id</label>
+           <select (click)="roledata()" formControlName="role_id" class="form-control" id="role_id"> 
+             <option value="">Select role id</option>
+            <option  *ngFor="let role of roles" [ngValue]="role.id">{{role.name}}</option> 
+            </select>
+          </div>
           <!--First name-->
           <div class="mb-3">
             <label>First name</label>

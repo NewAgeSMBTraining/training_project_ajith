@@ -2,12 +2,24 @@
 <form [formGroup]="loginform">
     <div>
         <label>Email address</label>
-        <input class="form-control" type="email" placeholder="Enter email id" formControlName="username">
+        <input class="form-control" name="username" id="username" type="email" placeholder="Enter email id" formControlName="username">
+        <span class="text-danger"
+        *ngIf="loginform.controls['username'].dirty && loginform.controls['username'].touched && loginform.hasError('required','username')">Email
+        is required
+      </span>
+      <span class="text-danger"
+        *ngIf="loginform.controls['username'].dirty && loginform.controls['username'].touched && loginform.hasError('email','username')">Email
+        format is not correct
+      </span>
     </div>
 
     <div>
         <label>Password</label>
         <input class="form-control" type="password" placeholder="Enter password" formControlName="password">
+        <span class="text-danger"
+        *ngIf="loginform.controls['password'].dirty && loginform.controls['password'].touched && loginform.hasError('required','password')">Password
+        is required
+      </span>
     </div>
 
 </form>

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/shared/api.service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChangePassword } from 'src/app/model/adduser.model';
 import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -19,10 +20,14 @@ export class ChangePasswordComponent implements OnInit {
 
 
   changePasswordForm = this.fb.group({
-    password:[''],
-    confirm_password:[''],
-    old_password:['']
-  })
+    password:['',[Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)]],
+    confirm_password:['', Validators.required],
+    old_password:['', Validators.required]
+  },
+  {
+    validators: this.mustMatch('password', 'confirm_password')
+  }
+  )
 
   changePassword(){
     this.changepasswordobj.old_password = this.changePasswordForm.value.old_password;
@@ -38,5 +43,22 @@ export class ChangePasswordComponent implements OnInit {
     },(err)=>{
       alert("Error in changing password " + err.error.message)
     })
+  }
+
+  mustMatch(controlName:string, matchingControlName:string){
+    return(formGroup:FormGroup)=>{
+      const control = formGroup.controls[controlName];
+      const matchingControl = formGroup.controls[matchingControlName];
+      if(matchingControl.errors && !matchingControl.errors['mustMatch']){
+        return
+      }
+      if(control.value!==matchingControl.value){
+        matchingControl.setErrors({mustMatch:true})
+      }
+      else{
+        matchingControl.setErrors(null)
+      }
+    }
+
   }
 }

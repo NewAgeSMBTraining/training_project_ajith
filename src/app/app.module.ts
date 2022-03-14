@@ -13,6 +13,8 @@ import { EmployeeListComponent } from './components/employee-list/employee-list.
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component'
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 
 @NgModule({
@@ -22,7 +24,8 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
     EmployeeListComponent,
     DashboardComponent,
     MyProfileComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,8 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
     NbLayoutModule,
     NbEvaIconsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPaginationModule
     
   ],
   providers: [],
