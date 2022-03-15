@@ -11,4 +11,8 @@ export class AuthorizationService {
     const token = localStorage.getItem('Authorization') || ""
     return token;
   }
+  getToken(){
+    const token = localStorage.getItem('Authorization') || ""
+    return token;
+  }
 }

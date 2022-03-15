@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../shared/api.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AddUser } from '../../model/adduser.model';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+// import { Pagination } from 'src/app/model/pagination.model';
+import { environment } from 'src/environments/environment';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-employee-list',
@@ -11,18 +15,31 @@ import { Router } from '@angular/router';
 })
 export class EmployeeListComponent implements OnInit {
   
+ 
   employeeList: any = [];
   roles:any=[];
-  employeeobj: AddUser = new AddUser
-
-  constructor(private api: ApiService, private fb: FormBuilder, private router: Router) {
+  employeeobj: AddUser = new AddUser;
+  // pagination: Pagination = {
+  //   page: 1,
+  //   limit: environment.PAGINATION_LIMIT,
+  //   count: 0,
+  // };
+  constructor(private api: ApiService, private fb: FormBuilder, private router: Router, private route:ActivatedRoute, private location:Location) {
    
    }
 
   ngOnInit(): void {
-    this.employeedata()
+    
+    this.route.queryParams.subscribe((params) => {
+
+      // this.pagination.page = params['page'] ? +params['page'] : 1;
+      // this.pagination.count = this.pagination.page * this.pagination.limit;
+      this.employeedata()
+    });
+    
   }
-  page:any;
+ 
+  
   userData = this.fb.group({
     id: [''],
     role_id: [''],
@@ -34,11 +51,43 @@ export class EmployeeListComponent implements OnInit {
     password: ['',[Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)]],
 
   })
-  employeedata() {
-    this.api.getList().subscribe(res => {
-      console.log(res)
-      this.employeeList = res;
-    })
+  // employeedata() {
+    
+    
+  //   this.api.getList().subscribe(res => {
+  //     console.log(res)
+  //     this.employeeList = res;
+  //   })
+  // }
+
+  changePage(page?: number): void {
+    const urlTree = this.router.createUrlTree([], {
+      queryParams: {
+        page: page,
+      
+      },
+      queryParamsHandling: 'merge',
+      preserveFragment: true,
+    });
+    this.location.replaceState(urlTree.toString());
+    this.employeedata()
+  }
+
+  async employeedata(): Promise<void> {
+    // const offset = (this.pagination.page - 1) * this.pagination.limit;
+    const {error, data, message} =
+   await this.api.getList('user',{
+    // offset,
+    // limit:this.pagination.limit,
+    populate:['role'],
+   });
+    if(!!error){
+   return message;
+      
+    }
+    // this.pagination.count = data?.count || 0;
+    this.employeeList = data?.users || []
+    console.log(data);
   }
 
   roledata(){
@@ -48,7 +97,9 @@ export class EmployeeListComponent implements OnInit {
       return this.roles;
     })
   }
-
+ 
+  
+ 
    user(userData: any) {
     console.log("user data data is", userData);
 

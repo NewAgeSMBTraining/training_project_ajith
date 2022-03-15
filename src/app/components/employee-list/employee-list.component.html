@@ -26,7 +26,7 @@
   </thead>
   <tbody>
     
-    <tr *ngFor="let employee of employeeList | paginate: {itemsPerPage:5, currentPage:page}">
+    <!-- <tr *ngFor="let employee of employeeList | paginate: {itemsPerPage:5, currentPage:page}">
       <td>{{employee.id}}</td>
       <td>{{employee.role.name}}</td>
       <td>{{employee.full_name}}</td>
@@ -40,7 +40,27 @@
     </tr>
   </tbody>
 </table>
-<pagination-controls (pageChange)="page = $event" class="float-end"></pagination-controls>
+<pagination-controls (pageChange)="page = $event" class="float-end"></pagination-controls> -->
+
+
+<tbody>
+    
+  <tr *ngFor="let employee of employeeList">
+    <td>{{employee.id}}</td>
+    <td>{{employee.role.name}}</td>
+    <td>{{employee.full_name}}</td>
+    <td>{{employee.email}}</td>
+    <td>{{employee.phone}}</td>
+    <td>
+      <button (click)="editdata(employee)" style="margin: 5px;" type="button" class="btn btn-warning"
+        data-bs-toggle="modal" data-bs-target="#exampleModal1">Edit</button>
+      <button (click)="deletedata(employee)" style="margin: 5px;" type="button" class="btn btn-danger">Delete</button>
+    </td>
+  </tr>
+</tbody>
+</table>
+
+
 <!-- Button trigger modal -->
 <div class="text-center ">
   <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
