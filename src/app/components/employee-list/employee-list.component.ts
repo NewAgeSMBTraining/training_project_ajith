@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../shared/api.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AddUser } from '../../model/adduser.model';
 import { Router, ActivatedRoute } from '@angular/router';
-// import { Pagination } from 'src/app/model/pagination.model';
+import { Pagination } from 'src/app/model/pagination.model';
 import { environment } from 'src/environments/environment';
 import { Location } from '@angular/common';
 
@@ -15,15 +15,15 @@ import { Location } from '@angular/common';
 })
 export class EmployeeListComponent implements OnInit {
   
- 
+  userData!: FormGroup;
   employeeList: any = [];
   roles:any=[];
   employeeobj: AddUser = new AddUser;
-  // pagination: Pagination = {
-  //   page: 1,
-  //   limit: environment.PAGINATION_LIMIT,
-  //   count: 0,
-  // };
+  pagination: Pagination = {
+    page: 1,
+    limit: environment.PAGINATION_LIMIT,
+    count: 0,
+  };
   constructor(private api: ApiService, private fb: FormBuilder, private router: Router, private route:ActivatedRoute, private location:Location) {
    
    }
@@ -32,25 +32,26 @@ export class EmployeeListComponent implements OnInit {
     
     this.route.queryParams.subscribe((params) => {
 
-      // this.pagination.page = params['page'] ? +params['page'] : 1;
-      // this.pagination.count = this.pagination.page * this.pagination.limit;
+      this.pagination.page = params['page'] ? +params['page'] : 1;
+      this.pagination.count = this.pagination.page * this.pagination.limit;
       this.employeedata()
+      this.userData = this.fb.group({
+        id: [''],
+        role_id: [''],
+        first_name: ['',Validators.required],
+        last_name: ['',Validators.required],
+        email: ['',[Validators.required, Validators.email]],
+        phone_code: [''],
+        phone: ['',[Validators.required,Validators.pattern('[0-9]{10}')]],
+        password: ['',[Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)]],
+    
+      })
     });
     
   }
  
   
-  userData = this.fb.group({
-    id: [''],
-    role_id: [''],
-    first_name: ['',Validators.required],
-    last_name: ['',Validators.required],
-    email: ['',[Validators.required, Validators.email]],
-    phone_code: [''],
-    phone: ['',[Validators.required,Validators.pattern('[0-9]{10}')]],
-    password: ['',[Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)]],
-
-  })
+ 
   // employeedata() {
     
     
@@ -74,18 +75,18 @@ export class EmployeeListComponent implements OnInit {
   }
 
   async employeedata(): Promise<void> {
-    // const offset = (this.pagination.page - 1) * this.pagination.limit;
+    const offset = (this.pagination.page - 1) * this.pagination.limit;
     const {error, data, message} =
    await this.api.getList('user',{
-    // offset,
-    // limit:this.pagination.limit,
+    offset,
+    limit:this.pagination.limit,
     populate:['role'],
    });
     if(!!error){
    return message;
       
     }
-    // this.pagination.count = data?.count || 0;
+    this.pagination.count = data?.count || 0;
     this.employeeList = data?.users || []
     console.log(data);
   }

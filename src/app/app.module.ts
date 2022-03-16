@@ -16,6 +16,8 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { OtpVerificationComponent } from './components/otp-verification/otp-verification.component';
 
 
 
@@ -27,6 +29,8 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
     DashboardComponent,
     MyProfileComponent,
     ChangePasswordComponent,
+    ForgotPasswordComponent,
+    OtpVerificationComponent,
     
   ],
   imports: [

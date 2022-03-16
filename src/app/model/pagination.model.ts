@@ -1,6 +1,6 @@
-// export interface Pagination {
-//     page: number;
-//     limit: number;
-//     count: number;
+export interface Pagination {
+    page: number;
+    limit: number;
+    count: number;
 
-// }
+}

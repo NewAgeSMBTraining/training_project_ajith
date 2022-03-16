@@ -1,0 +1,11 @@
+<h3>Verify Otp</h3>
+<br>
+<form [formGroup]="otpForm">
+    <div class="mb-3">
+        <label>Enter OTP</label>
+        <input type="text"  class="form-control" placeholder="Enter the otp" formControlName="otp"> 
+    </div>  
+<button (click)="otpVerify(otpForm)" type="submit" class="btn btn-primary">Verify</button>
+</form>
+
+

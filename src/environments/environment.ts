@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  PAGINATION_LIMIT: 10,
+  PAGINATION_LIMIT: 5,
 
 };
 

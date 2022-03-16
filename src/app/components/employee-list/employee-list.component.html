@@ -59,7 +59,9 @@
   </tr>
 </tbody>
 </table>
-
+<ngb-pagination [hidden]="pagination.limit >= pagination.count" [collectionSize]="pagination.count" [rotate]="true"
+  [maxSize]="4" [(page)]="pagination.page" [pageSize]="pagination.limit" (pageChange)="changePage($event)" [ellipses]="true" [boundaryLinks]="true">
+</ngb-pagination>
 
 <!-- Button trigger modal -->
 <div class="text-center ">

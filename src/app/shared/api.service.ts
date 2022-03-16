@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { HttpService } from './http.service';
-import { map, Observable } from 'rxjs';
+import { map } from 'rxjs';
 import { Login } from '../model/login.model';
+import { Forgotpassword } from '../model/forgotpassword.model';
 import { Queryparams } from '../model/queryparams.model';
 import { AuthorizationService } from '../guard/authorization.service';
+import { Otpverify } from '../model/otpverify.model';
 import { ApiResponse} from '../model/apiresponse.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private apiBaseUrl = 'http://web.newagesme.com:3636/user/'
+  private apiBaseUrl = 'http://web.newagesme.com:3636'
   request!: Login[];
   
   //Used to generate query(Adding query to URL)
@@ -32,7 +34,7 @@ export class ApiService {
   }
  
 header = new HttpHeaders({
-    // "Authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uSWQiOiI2MjI2ZjEwM2U2M2VjNDA4NjNhYzAyYzUiLCJ1c2VySWQiOjEsImlhdCI6MTY0NjcxOTIzNSwiZXhwIjoxNjQ2ODA1NjM1fQ.LR_-ZcW1h8Qdwm_8LdU4O-0g9H55JtOH-raHT2KaVyk"
+    
     "Authorization": localStorage.getItem('Authorization') || ""
    
   })
@@ -43,7 +45,7 @@ header = new HttpHeaders({
 
   }
 
-  // ?offset=0&limit=-1
+  
 
   loginData(request: Login) {
     return this.httpclient.post<any>("http://web.newagesme.com:3636/auth/local",request,).pipe(
@@ -62,7 +64,7 @@ header = new HttpHeaders({
   //Normal service
   // getList() {
     
-  //   return this.httpclient.get<any>("http://web.newagesme.com:3636/user?populate=%5B%22role%22%5D",{headers:this.header}).pipe(
+  //   return this.httpclient.get<any>("http://web.newagesme.com:3636/user?offset=0&limit=-1&populate=%5B%22role%22%5D",{headers:this.header}).pipe(
   //     map(
   //       (res) => {
   //         return res.data.users
@@ -127,6 +129,25 @@ header = new HttpHeaders({
           return res
         }))
   }
+  forgotPassword(data:Forgotpassword){
+    return this.httpclient.post<any>("http://web.newagesme.com:3636/auth/password/forgot",data).pipe(
+      map((
+        res=>{
+          return res
+        }
+      ))
+    )
+  }
+otpVerification(data:Otpverify){
+  return this.httpclient.post<any>("http://web.newagesme.com:3636/auth/otp/verify",data).pipe(
+    map((
+      res=>{
+        return res
+      }
+    ))
+  )
+}
+
   errorHandler(e: any): any {
     if (e instanceof HttpErrorResponse) {
       return e.status ? { error: e.error, message: e.error?.message || 'network error' } : { error: e, message: 'network error' };
