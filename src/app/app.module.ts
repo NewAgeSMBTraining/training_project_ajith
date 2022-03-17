@@ -18,6 +18,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { OtpVerificationComponent } from './components/otp-verification/otp-verification.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 
 
@@ -31,6 +32,7 @@ import { OtpVerificationComponent } from './components/otp-verification/otp-veri
     ChangePasswordComponent,
     ForgotPasswordComponent,
     OtpVerificationComponent,
+    ResetPasswordComponent,
     
   ],
   imports: [

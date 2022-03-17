@@ -4,8 +4,12 @@
     <div class="mb-3">
         <label>Enter OTP</label>
         <input type="text"  class="form-control" placeholder="Enter the otp" formControlName="otp"> 
+        <span class="text-danger"
+        *ngIf="otpForm.controls['otp'].dirty && otpForm.controls['otp'].touched && otpForm.hasError('required','otp')">OTP
+        is required
+      </span>
     </div>  
-<button (click)="otpVerify(otpForm)" type="submit" class="btn btn-primary">Verify</button>
+<button [disabled]="!otpForm.valid" (click)="otpVerify(otpForm)" type="submit" class="btn btn-primary">Verify</button>
 </form>
 
 

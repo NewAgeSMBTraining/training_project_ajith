@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/shared/api.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,7 +14,7 @@ forgotPasswordForm!: FormGroup
 
   ngOnInit(): void {
     this.forgotPasswordForm = this.fb.group({
-      email:['']
+      email:['',[Validators.required,Validators.email]]
     })
   }
 

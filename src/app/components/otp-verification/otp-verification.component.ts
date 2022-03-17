@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup,FormBuilder } from '@angular/forms';
+import { FormGroup,FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ApiService } from 'src/app/shared/api.service';
 
 @Component({
@@ -10,11 +11,11 @@ import { ApiService } from 'src/app/shared/api.service';
 export class OtpVerificationComponent implements OnInit {
   id = localStorage.getItem("session_id") || ""
   otpForm!:FormGroup
-  constructor(private fb:FormBuilder, private api:ApiService) { }
+  constructor(private fb:FormBuilder, private api:ApiService, private router:Router) { }
 
   ngOnInit(): void {
     this.otpForm= this.fb.group({
-      otp:['']
+      otp:['',Validators.required]
     })
   }
   otpVerify(data:any){
@@ -26,6 +27,7 @@ export class OtpVerificationComponent implements OnInit {
       console.log(res);
       if(res.message=="OTP verified"){
         alert("OTP verified")
+        this.router.navigateByUrl('/resetpassword')
       }
       else{
         alert("OTP not verified")

@@ -7,6 +7,7 @@ import { Forgotpassword } from '../model/forgotpassword.model';
 import { Queryparams } from '../model/queryparams.model';
 import { AuthorizationService } from '../guard/authorization.service';
 import { Otpverify } from '../model/otpverify.model';
+import { Resetpassword } from '../model/resetpassword.model';
 import { ApiResponse} from '../model/apiresponse.model';
 
 @Injectable({
@@ -147,7 +148,13 @@ otpVerification(data:Otpverify){
     ))
   )
 }
-
+resetPassword(data:Resetpassword){
+  return this.httpclient.post<any>("http://web.newagesme.com:3636/auth/password/reset", data).pipe(
+    map((res)=>{
+      return res
+    })
+  )
+}
   errorHandler(e: any): any {
     if (e instanceof HttpErrorResponse) {
       return e.status ? { error: e.error, message: e.error?.message || 'network error' } : { error: e, message: 'network error' };
