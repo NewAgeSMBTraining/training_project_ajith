@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/shared/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastService } from 'src/app/shared/toast.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class ForgotPasswordComponent implements OnInit {
 forgotPasswordForm!: FormGroup
-  constructor(private fb:FormBuilder, private api:ApiService, private router:Router) { }
+  constructor(private fb:FormBuilder, private api:ApiService, private router:Router, private toast:ToastService) { }
 
   ngOnInit(): void {
     this.forgotPasswordForm = this.fb.group({
@@ -28,16 +29,16 @@ forgotPasswordForm!: FormGroup
       console.log(res);
       localStorage.setItem('session_id', res.data.session_id)
       if (res.message == "OTP sent") {
-        alert("OTP send successfully.. Please check the email")
+        this.toast.primary("OTP send successfully.. Please check the email")
         this.router.navigateByUrl('/otpverification')
         
 
       } else {
-        alert("Unable to send OTP")
+        this.toast.error("Unable to send OTP")
       }
 
     }, (err) => {
-      alert(err.error.message)
+      this.toast.error(err.error.message)
     })
       
   }

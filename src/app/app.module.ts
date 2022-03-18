@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbToastrModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -19,6 +19,7 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { OtpVerificationComponent } from './components/otp-verification/otp-verification.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 
 
@@ -34,6 +35,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     OtpVerificationComponent,
     ResetPasswordComponent,
     
+    
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,9 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     HttpClientModule,
     NgxPaginationModule,
     NgbModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    LayoutModule,
+    NbToastrModule.forRoot()
     
   ],
   providers: [],

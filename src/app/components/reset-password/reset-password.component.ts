@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/shared/api.service';
 import { Router } from '@angular/router';
+import { ToastService } from 'src/app/shared/toast.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class ResetPasswordComponent implements OnInit {
   resetpasswordForm!:FormGroup
-  constructor(private fb:FormBuilder, private api:ApiService, private router:Router) { }
+  constructor(private fb:FormBuilder, private api:ApiService, private router:Router, private toast:ToastService) { }
 
   ngOnInit(): void {
     this.resetpasswordForm = this.fb.group({
@@ -31,14 +32,14 @@ export class ResetPasswordComponent implements OnInit {
     this.api.resetPassword(Data).subscribe((res)=>{
       console.log(res);
       if(res.message=="Password changed"){
-        alert("Password changed successfully")
+        this.toast.primary("Password changed successfully")
         this.router.navigateByUrl("/")
       }
       else{
-        alert("Password change unsuccessfull")
+        this.toast.error("Password change unsuccessfull")
       }
     },(err)=>{
-      alert(err.error.message)
+      this.toast.error(err.error.message)
     })
   }
   mustMatch(controlName:string, matchingControlName:string){

@@ -33,12 +33,26 @@ export class ApiService {
     }
     return url;
   }
- 
-header = new HttpHeaders({
+  //header token passing as function
+  token( ){
+   const headers:any = {
+    'Content-Type': 'application/json',
     
-    "Authorization": localStorage.getItem('Authorization') || ""
+    
+   }
+   const token = localStorage.getItem('Authorization') || ""
+   headers.Authorization = token
+ return {
+   headers:new HttpHeaders(headers)
+ }
+ }
+
+ //header token passing 
+// header = new HttpHeaders({
+    
+//     "Authorization": localStorage.getItem('Authorization') || ""
    
-  })
+//   })
 
 
   constructor(private httpclient: HttpClient, private authservice:AuthorizationService, private httpservice:HttpService) {
@@ -56,13 +70,13 @@ header = new HttpHeaders({
         })))
   }
   addUserData(data: any) {
-    return this.httpclient.post<any>("http://web.newagesme.com:3636/user",data,{headers:this.header}).pipe(
+    return this.httpclient.post<any>("http://web.newagesme.com:3636/user",data,this.token()).pipe(
       map(
         (res => {
           return res
         })))
   }
-  //Normal service
+  //Normal method
   // getList() {
     
   //   return this.httpclient.get<any>("http://web.newagesme.com:3636/user?offset=0&limit=-1&populate=%5B%22role%22%5D",{headers:this.header}).pipe(
@@ -75,7 +89,7 @@ header = new HttpHeaders({
   //service using async
   async getList(url: string, options?: Queryparams):Promise<ApiResponse> {
     try {
-      const response = await this.httpservice.get(this.generateQueryUrl(url, options),{headers:this.header} );
+      const response = await this.httpservice.get(this.generateQueryUrl(url, options),this.token() );
       return response
       
       
@@ -88,7 +102,7 @@ header = new HttpHeaders({
   }
   
   getRoles(){
-    return this.httpclient.get<any>("http://web.newagesme.com:3636/role",{headers:this.header}).pipe(
+    return this.httpclient.get<any>("http://web.newagesme.com:3636/role",this.token()).pipe(
       map(
         (res => {
           return res
@@ -96,35 +110,35 @@ header = new HttpHeaders({
   }
   editList(data: any, id: number) {
 
-    return this.httpclient.put<any>("http://web.newagesme.com:3636/user/"+id,data,{headers:this.header}).pipe(
+    return this.httpclient.put<any>("http://web.newagesme.com:3636/user/"+id,data,this.token()).pipe(
       map(
         (res) => {
           return res
         }))
   }
   deleteList(id: number) {
-    return this.httpclient.delete<any>("http://web.newagesme.com:3636/user/"+id, {headers:this.header}).pipe(
+    return this.httpclient.delete<any>("http://web.newagesme.com:3636/user/"+id, this.token()).pipe(
       map(
         (res) => {
           return res
         }))
   }
   loggedinDetails(){
-    return this.httpclient.get<any>("http://web.newagesme.com:3636/user/me",{headers:this.header}).pipe(
+    return this.httpclient.get<any>("http://web.newagesme.com:3636/user/me",this.token()).pipe(
       map(
         (res) => {
           return res.data.user
         }))
   }
   updateLoggedinDetails(data:any){
-    return this.httpclient.put<any>("http://web.newagesme.com:3636/user/me",data,{headers:this.header}).pipe(
+    return this.httpclient.put<any>("http://web.newagesme.com:3636/user/me",data,this.token()).pipe(
       map(
         (res) => {
           return res
         }))
   }
   changeUserPassword(data:any){
-    return this.httpclient.put<any>("http://web.newagesme.com:3636/user/password",data,{headers:this.header}).pipe(
+    return this.httpclient.put<any>("http://web.newagesme.com:3636/user/password",data,this.token()).pipe(
       map(
         (res) => {
           return res

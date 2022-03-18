@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup,FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/shared/api.service';
+import { ToastService } from 'src/app/shared/toast.service';
+
 
 @Component({
   selector: 'app-otp-verification',
@@ -11,7 +13,7 @@ import { ApiService } from 'src/app/shared/api.service';
 export class OtpVerificationComponent implements OnInit {
   id = localStorage.getItem("session_id") || ""
   otpForm!:FormGroup
-  constructor(private fb:FormBuilder, private api:ApiService, private router:Router) { }
+  constructor(private fb:FormBuilder, private api:ApiService, private router:Router, private toast:ToastService) { }
 
   ngOnInit(): void {
     this.otpForm= this.fb.group({
@@ -26,14 +28,14 @@ export class OtpVerificationComponent implements OnInit {
     this.api.otpVerification(Data).subscribe((res)=>{
       console.log(res);
       if(res.message=="OTP verified"){
-        alert("OTP verified")
+        this.toast.primary("OTP verified")
         this.router.navigateByUrl('/resetpassword')
       }
       else{
-        alert("OTP not verified")
+        this.toast.error("OTP not verified")
       }
     },(err)=>{
-      alert(err.error.message)
+      this.toast.error(err.error.message)
     })
   }
 }

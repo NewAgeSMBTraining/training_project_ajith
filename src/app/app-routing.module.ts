@@ -10,15 +10,19 @@ import { OtpVerificationComponent } from './components/otp-verification/otp-veri
 import { AuthorizationGuard } from './guard/authorization.guard';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
+
+
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'list', component: EmployeeListComponent, canActivate:[AuthorizationGuard] },
-  {path: 'dashboard', component:DashboardComponent, canActivate:[AuthorizationGuard] },
+  {path: 'dashboard', component:DashboardComponent },
   {path: 'profile', component:MyProfileComponent, canActivate:[AuthorizationGuard] },
   {path: 'changepassword', component:ChangePasswordComponent, canActivate:[AuthorizationGuard] },
   {path:'forgotpassword', component:ForgotPasswordComponent},
   {path:'otpverification', component:OtpVerificationComponent},
-  {path:'resetpassword', component:ResetPasswordComponent}
+  {path:'resetpassword', component:ResetPasswordComponent},
+  {path:'dashboard', component:DashboardComponent},
+
 ];
 
 @NgModule({

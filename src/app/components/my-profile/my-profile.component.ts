@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/shared/api.service';
 import { FormBuilder } from '@angular/forms';
 import { LogUser } from 'src/app/model/adduser.model';
+import { ToastService } from 'src/app/shared/toast.service';
 
 @Component({
   selector: 'app-my-profile',
@@ -13,7 +14,7 @@ export class MyProfileComponent implements OnInit {
   
   employeeData: any = [];
   updateObj: LogUser = new LogUser
-  constructor(private api:ApiService, private fb:FormBuilder) { }
+  constructor(private api:ApiService, private fb:FormBuilder, private toast:ToastService) { }
 
   ngOnInit(): void {
     this.loggedinUser()
@@ -38,7 +39,7 @@ loggedinUser(){
     console.log(this.employeeData);
     
   },(err)=>{
-    alert(err)
+    this.toast.error(err.error.message)
   })
 }
 edit(data:any){
@@ -65,11 +66,11 @@ updatelist() {
   this.api.updateLoggedinDetails(this.updateObj).subscribe((res) => {
     console.log(res);
     if (res.message == "Updated") {
-      alert("Employee data updated")
+      this.toast.primary("Employee data updated")
       this.loggedinUser()
     }    
   },(err)=>{
-    alert("Error updating data" + err)
+    this.toast.error("Error updating data" + err.error.message)
   })
 
 }

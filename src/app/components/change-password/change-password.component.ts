@@ -3,6 +3,7 @@ import { ApiService } from 'src/app/shared/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChangePassword } from 'src/app/model/adduser.model';
 import { Router } from '@angular/router';
+import { ToastService } from 'src/app/shared/toast.service';
 
 
 
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class ChangePasswordComponent implements OnInit {
   changepasswordobj: ChangePassword = new ChangePassword
-  constructor(private api:ApiService, private fb:FormBuilder, private router:Router) { }
+  constructor(private api:ApiService, private fb:FormBuilder, private router:Router, private toast:ToastService) { }
 
   ngOnInit(): void {
   }
@@ -36,12 +37,12 @@ export class ChangePasswordComponent implements OnInit {
     this.api.changeUserPassword(this.changepasswordobj).subscribe((res) => {
       console.log(res);
       if (res.message == "Password changed") {
-        alert("Password changed successfully")
+      this.toast.primary("password changed successfully")
       this.changePasswordForm.reset();
       this.router.navigateByUrl('/profile')
 }
     },(err)=>{
-      alert("Error in changing password " + err.error.message)
+      this.toast.error("Error in changing password " + err.error.message)
     })
   }
 

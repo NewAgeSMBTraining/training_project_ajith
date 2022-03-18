@@ -1,4 +1,6 @@
+
 <h1>Login form</h1>
+
 <form [formGroup]="loginform">
     <div>
         <label>Email address</label>
@@ -31,5 +33,5 @@
   <a href="forgotpassword">Forgot Password</a>
 </div>
 <div>
-    <button type="submit" style="margin: 5px;" [disabled]="!loginform.valid" (click)="Login(loginform)"  class="btn btn-primary">Login</button>
+    <button type="submit" style="margin:5px;" [disabled]="!loginform.valid" (click)="Login(loginform)"  class="btn btn-primary">Login</button>
 </div>

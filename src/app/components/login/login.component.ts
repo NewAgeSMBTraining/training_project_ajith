@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../shared/api.service';
 import { Router } from '@angular/router';
+import { ToastService } from 'src/app/shared/toast.service';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   loginform!: FormGroup;
-  constructor(private fb: FormBuilder, private api: ApiService, private router: Router) { }
+  constructor(private fb: FormBuilder, private api: ApiService, private router: Router, private toast:ToastService) { }
 
   ngOnInit(): void {
     this.loginform = this.fb.group({
@@ -35,15 +36,15 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('Authorization', 'Bearer ' + res.data.token)
       // localStorage.setItem('Data', JSON.stringify(res.data.user))
       if (res.message == "Login success") {
-        alert("Logged in")
+        this.toast.primary("Logged in")
         this.router.navigateByUrl("/list")
 
       } else {
-        alert("User not found")
+       this.toast.error("User not found")
       }
 
     }, (err) => {
-      alert(err.error.message)
+      this.toast.error(err.error.message)
     })
 
   }

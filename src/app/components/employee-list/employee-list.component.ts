@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Pagination } from 'src/app/model/pagination.model';
 import { environment } from 'src/environments/environment';
 import { Location } from '@angular/common';
+import { ToastService } from 'src/app/shared/toast.service';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class EmployeeListComponent implements OnInit {
     limit: environment.PAGINATION_LIMIT,
     count: 0,
   };
-  constructor(private api: ApiService, private fb: FormBuilder, private router: Router, private route:ActivatedRoute, private location:Location) {
+  constructor(private api: ApiService, private fb: FormBuilder, private router: Router, private route:ActivatedRoute, private location:Location, private toast:ToastService) {
    
    }
 
@@ -35,6 +36,7 @@ export class EmployeeListComponent implements OnInit {
       this.pagination.page = params['page'] ? +params['page'] : 1;
       this.pagination.count = this.pagination.page * this.pagination.limit;
       this.employeedata()
+      
       this.userData = this.fb.group({
         id: [''],
         role_id: [''],
@@ -45,6 +47,7 @@ export class EmployeeListComponent implements OnInit {
         phone: ['',[Validators.required,Validators.pattern('[0-9]{10}')]],
         password: ['',[Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)]],
     
+        
       })
     });
     
@@ -117,13 +120,13 @@ export class EmployeeListComponent implements OnInit {
      this.api.addUserData(data).subscribe((res: any) => {
       console.log(res);
       if (res.message == "Created") {
-        alert("User data added")
+        this.toast.primary("User data added")
         this.employeedata();
         this.userData.reset()
       }
 
     }, (err) => {
-      alert("Error in adding data" + err.error.message)
+      this.toast.error("Error in adding data" + err.error.message)
     })
 
   }
@@ -151,12 +154,12 @@ export class EmployeeListComponent implements OnInit {
     this.api.editList(this.employeeobj, this.employeeobj.id).subscribe((res) => {
       console.log(res);
       if (res.message == "Updated") {
-        alert("Employee data updated")
+        this.toast.primary("Employee data updated")
         this.employeedata();
 
       }
     },(err)=>{
-      alert("Error in updating data" + err.error.message)
+      this.toast.error("Error in updating data" + err.error.message)
     })
 
   }
@@ -164,18 +167,19 @@ export class EmployeeListComponent implements OnInit {
     this.api.deleteList(data.id).subscribe((res) => {
       console.log(res);
       if (res.message == "Deleted") {
-        alert("User data deleted")
+        this.toast.primary("User data deleted")
         this.employeedata();
       }
     }, (err) => {
-      alert("Error in deleting data" + err.error.message)
+      this.toast.error("Error in deleting data" + err.error.message)
     })
   }
 
   logout(){
-    localStorage.clear()
     alert("Logged out")
-    this.router.navigateByUrl('/login')
+    localStorage.clear()
+        this.router.navigateByUrl('/login')
+    
   }
 
 }
