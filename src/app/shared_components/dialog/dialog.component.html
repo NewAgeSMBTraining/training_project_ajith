@@ -1,0 +1,13 @@
+
+<nb-card>
+  <nb-card-header>{{ dialogData?.title }}</nb-card-header>
+  <nb-card-body>
+    {{dialogData.text}}
+  </nb-card-body>
+  <nb-card-footer>
+    <button class="float-right" nbButton status="danger" [hidden]="!dialogData?.close_btn?.show" [disabled]="dialogData.close_btn?.disabled"
+      (click)="dismiss(false)">{{dialogData.close_btn.text}}</button>
+    <button class="confirm float-right" nbButton status="success" [hidden]="!dialogData?.confirm_btn?.show" [disabled]="dialogData.confirm_btn?.disabled"
+      (click)="dismiss(true)">{{dialogData?.confirm_btn?.text}}</button>
+  </nb-card-footer>
+</nb-card>

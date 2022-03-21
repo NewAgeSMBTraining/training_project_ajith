@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from 'src/app/shared/api.service';
+import { ApiService } from 'src/app/service/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChangePassword } from 'src/app/model/adduser.model';
 import { Router } from '@angular/router';
-import { ToastService } from 'src/app/shared/toast.service';
+import { ToastService } from 'src/app/service/toast.service';
 
 
 

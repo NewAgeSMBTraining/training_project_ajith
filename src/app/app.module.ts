@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule, NbToastrModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbToastrModule, NbDialogModule, NbCardModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -20,6 +20,10 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { OtpVerificationComponent } from './components/otp-verification/otp-verification.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { DialogComponent } from './shared_components/dialog/dialog.component';
+import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
+import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
+
 
 
 
@@ -34,6 +38,9 @@ import { LayoutModule } from '@angular/cdk/layout';
     ForgotPasswordComponent,
     OtpVerificationComponent,
     ResetPasswordComponent,
+    DialogComponent,
+    AddEmployeeComponent,
+    EditEmployeeComponent
     
     
   ],
@@ -50,7 +57,10 @@ import { LayoutModule } from '@angular/cdk/layout';
     NgbModule,
     NgbPaginationModule,
     LayoutModule,
-    NbToastrModule.forRoot()
+    NbToastrModule.forRoot(),
+    NbDialogModule.forRoot(),
+    NbCardModule
+    
     
   ],
   providers: [],

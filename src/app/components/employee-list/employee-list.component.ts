@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../shared/api.service';
+import { ApiService } from '../../service/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AddUser } from '../../model/adduser.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Pagination } from 'src/app/model/pagination.model';
 import { environment } from 'src/environments/environment';
 import { Location } from '@angular/common';
-import { ToastService } from 'src/app/shared/toast.service';
+import { ToastService } from 'src/app/service/toast.service';
+import { DailogService } from 'src/app/service/dialog.service';
+import { DialogComponent } from 'src/app/shared_components/dialog/dialog.component';
+import { DialogResponse } from 'src/app/model/dialog.model';
 
 
 @Component({
@@ -25,7 +28,14 @@ export class EmployeeListComponent implements OnInit {
     limit: environment.PAGINATION_LIMIT,
     count: 0,
   };
-  constructor(private api: ApiService, private fb: FormBuilder, private router: Router, private route:ActivatedRoute, private location:Location, private toast:ToastService) {
+  constructor(private api: ApiService, 
+    private fb: FormBuilder, 
+    private router: Router, 
+    private route:ActivatedRoute, 
+    private location:Location, 
+    private toast:ToastService,
+    private dailog:DailogService
+    ) {
    
    }
 
@@ -164,17 +174,21 @@ export class EmployeeListComponent implements OnInit {
 
   }
   deletedata(data: any) {
-    this.api.deleteList(data.id).subscribe((res) => {
-      console.log(res);
-      if (res.message == "Deleted") {
-        this.toast.primary("User data deleted")
-        this.employeedata();
-      }
-    }, (err) => {
-      this.toast.error("Error in deleting data" + err.error.message)
-    })
-  }
-
+    this.dailog.open({text:'Are you sure you want to delete?'})
+    .subscribe((result:DialogResponse)=>{
+      
+        if(result.status==true){ 
+          this.api.deleteList(data.id).subscribe((res) => {
+           console.log(res);
+          if (res.message == "Deleted") {
+            this.toast.primary("User data deleted")
+            this.employeedata();
+          }}, (err) => {
+            this.toast.error("Error in deleting data" + err.error.message)
+          })}
+     
+  })}
+  
   logout(){
     alert("Logged out")
     localStorage.clear()

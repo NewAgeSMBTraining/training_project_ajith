@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ApiService } from '../../shared/api.service';
+import { ApiService } from '../../service/api.service';
 import { Router } from '@angular/router';
-import { ToastService } from 'src/app/shared/toast.service';
+import { ToastService } from 'src/app/service/toast.service';
 
 
 @Component({
