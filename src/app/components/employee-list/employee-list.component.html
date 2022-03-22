@@ -52,8 +52,7 @@
     <td>{{employee.email}}</td>
     <td>{{employee.phone}}</td>
     <td>
-      <button (click)="editdata(employee)" style="margin: 5px;" type="button" class="btn btn-warning"
-        data-bs-toggle="modal" data-bs-target="#exampleModal1">Edit</button>
+      <button (click)="openUpdateEmployee(employee)"  style="margin: 5px;" type="button" class="btn btn-warning">Edit</button>
       <button (click)="deletedata(employee)" style="margin: 5px;" type="button" class="btn btn-danger">Delete</button>
     </td>
   </tr>
@@ -63,15 +62,15 @@
   [maxSize]="4" [(page)]="pagination.page" [pageSize]="pagination.limit" (pageChange)="changePage($event)" [ellipses]="true" [boundaryLinks]="true">
 </ngb-pagination>
 
-<!-- Button trigger modal -->
+<!-- Add employee Button -->
 <div class="text-center ">
-  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  <button type="button" class="btn btn-success" (click)="openAddEmployee()">
     Add Employee
   </button>
 </div>
 
 
-<!-- Modal signup user -->
+<!-- Modal signup user 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -85,8 +84,8 @@
       <div class="modal-body">
         <form [formGroup]="userData">
          
-          <!--Role id-->
-          <!-- <div class="mb-3">
+         
+          <div class="mb-3">
           <label for="role_id" class="form-label">Role ID</label>
           <input type="number" min="1" max="2" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..."
             formControlName="role_id">
@@ -95,12 +94,16 @@
             <option value=2>
 
           </datalist>
-        </div> -->
-          <!-- <div class="mb-3">
+        </div>
+          <div class="mb-3">
             <label for = "role_id">Role ID</label>
             
             <input class="form-control"  type="number" placeholder="Enter your role id" formControlName="role_id">
-            </div> -->
+            </div>
+
+
+
+            
             <div class="mb-3">
             <label >Role_id</label>
            <select (click)="roledata()" formControlName="role_id" class="form-control" id="role_id"> 
@@ -108,7 +111,7 @@
             <option  *ngFor="let role of roles" [ngValue]="role.id">{{role.name}}</option> 
             </select>
           </div>
-          <!--First name-->
+         
           <div class="mb-3">
             <label>First name</label>
             <input class="form-control" id="first_name" name="first_name" type="text"
@@ -118,7 +121,7 @@
               name is required
             </span>
           </div>
-          <!--Last name-->
+          
           <div class="mb-3">
             <label>Last name</label>
             <input class="form-control" id="last_name" name="last_name" type="text" placeholder="Enter your last name"
@@ -128,7 +131,7 @@
               name is required
             </span>
           </div>
-          <!--Email-->
+    
           <div class="mb-3">
             <label>Email</label>
             <input class="form-control" id="email" name="email" type="text" placeholder="Enter email"
@@ -142,12 +145,12 @@
               format is not correct
             </span>
           </div>
-          <!--Phone code-->
+        
           <div class="mb-3">
             <label>Phone Code</label>
             <input class="form-control" type="text" placeholder="Enter phone code" formControlName="phone_code">
           </div>
-          <!--Phone number-->
+          
           <div class="mb-3">
             <label>Phone number</label>
             <input class="form-control" id="phone" name="phone" type="text" placeholder="Enter phone number"
@@ -161,7 +164,7 @@
               number should be 10 digits
             </span>
           </div>
-          <!--Password-->
+         
           <div class="mb-3">
             <label>Password</label>
             <input class="form-control" id="password" name="password" type="password" placeholder="Enter password"
@@ -186,9 +189,9 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
-<!-- Modal update user -->
+<!-- Modal update user
 <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -201,28 +204,28 @@
       </div>
       <div class="modal-body">
         <form [formGroup]="userData">
-          <!--Role id-->
+          
           <div class="mb-3">
             <label>Role ID</label>
             <input class="form-control" type="number" placeholder="Enter role id" formControlName="role_id">
           </div>
-          <!--First name-->
+         
           <div class="mb-3">
             <label>First name</label>
             <input class="form-control" type="email" placeholder="Enter your first name" formControlName="first_name">
           </div>
-          <!--Last name-->
+         
           <div class="mb-3">
             <label>Last name</label>
             <input class="form-control" type="text" placeholder="Enter your last name" formControlName="last_name">
           </div>
 
-          <!--Phone code-->
+          
           <div class="mb-3">
             <label>Phone Code</label>
             <input class="form-control" type="text" placeholder="Enter phone code" formControlName="phone_code">
           </div>
-          <!--Phone number-->
+    
           <div class="mb-3">
             <label>Phone number</label>
             <input class="form-control" type="text" placeholder="Enter phone number" formControlName="phone">
@@ -237,4 +240,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

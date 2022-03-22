@@ -1,38 +1,14 @@
-<!-- Modal signup user -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Employee Details</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-         
-          <!--Role id-->
-          <!-- <div class="mb-3">
-          <label for="role_id" class="form-label">Role ID</label>
-          <input type="number" min="1" max="2" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..."
-            formControlName="role_id">
-          <datalist id="datalistOptions">
-            <option value=1>
-            <option value=2>
-
-          </datalist>
-        </div> -->
-          <!-- <div class="mb-3">
-            <label for = "role_id">Role ID</label>
-            
-            <input class="form-control"  type="number" placeholder="Enter your role id" formControlName="role_id">
-            </div> -->
-            <div class="mb-3">
+<nb-card>
+    <nb-card-header>Add employee</nb-card-header>
+    <nb-card-body>
+      
+        <form [formGroup]="userData" >
+        
+          <div class="mb-3">
             <label >Role_id</label>
            <select  formControlName="role_id" class="form-control" id="role_id"> 
              <option value="">Select role id</option>
-            <option  *ngFor="" [ngValue]=""></option> 
+            <option  *ngFor="let role of roles" [ngValue]="role.id">{{role.name}}</option> 
             </select>
           </div>
           <!--First name-->
@@ -40,7 +16,7 @@
             <label>First name</label>
             <input class="form-control" id="first_name" name="first_name" type="text"
               placeholder="Enter your first name" formControlName="first_name">
-            
+           
           </div>
           <!--Last name-->
           <div class="mb-3">
@@ -54,7 +30,7 @@
             <label>Email</label>
             <input class="form-control" id="email" name="email" type="text" placeholder="Enter email"
               formControlName="email">
-            
+        
           </div>
           <!--Phone code-->
           <div class="mb-3">
@@ -66,23 +42,25 @@
             <label>Phone number</label>
             <input class="form-control" id="phone" name="phone" type="text" placeholder="Enter phone number"
               formControlName="phone">
-            
+         
           </div>
           <!--Password-->
           <div class="mb-3">
             <label>Password</label>
             <input class="form-control" id="password" name="password" type="password" placeholder="Enter password"
               formControlName="password">
-          
+           
           </div>
-
+  
         </form>
-      </div>
+      
+    </nb-card-body>
+    <nb-card-footer>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button"  class="btn btn-primary">Add</button>
-
+        <button type="button" (click)="dismiss(false)" class="btn btn-secondary" >Close</button>
+        <button type="button" (click)="user(userData)"  class="btn btn-primary">Add</button>
+  
       </div>
-    </div>
-  </div>
-</div>
+    </nb-card-footer>
+  </nb-card>
+  

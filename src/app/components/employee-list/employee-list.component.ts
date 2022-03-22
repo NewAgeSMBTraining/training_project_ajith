@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ApiService } from '../../service/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AddUser } from '../../model/adduser.model';
@@ -9,7 +9,9 @@ import { Location } from '@angular/common';
 import { ToastService } from 'src/app/service/toast.service';
 import { DailogService } from 'src/app/service/dialog.service';
 import { DialogComponent } from 'src/app/shared_components/dialog/dialog.component';
-import { DialogResponse } from 'src/app/model/dialog.model';
+import {  DialogResponse } from 'src/app/model/dialog.model';
+import { AddEmployeeComponent } from '../add-employee/add-employee.component';
+import { EditEmployeeComponent } from '../edit-employee/edit-employee.component';
 
 
 @Component({
@@ -34,7 +36,8 @@ export class EmployeeListComponent implements OnInit {
     private route:ActivatedRoute, 
     private location:Location, 
     private toast:ToastService,
-    private dailog:DailogService
+    private dailog:DailogService,
+   
     ) {
    
    }
@@ -104,44 +107,55 @@ export class EmployeeListComponent implements OnInit {
     console.log(data);
   }
 
-  roledata(){
-    this.api.getRoles().subscribe(res=>{
-      console.log(res);
-      this.roles=res.data.roles;
-      return this.roles;
+  // roledata(){
+  //   this.api.getRoles().subscribe(res=>{
+  //     console.log(res);
+  //     this.roles=res.data.roles;
+  //     return this.roles;
+  //   })
+  // }
+ 
+  openAddEmployee(){
+    this.dailog.openRef(AddEmployeeComponent).onClose.subscribe(()=>{
+      this.employeedata()
     })
   }
- 
-  
- 
-   user(userData: any) {
-    console.log("user data data is", userData);
 
-    const data = {
-      role_id: userData.value.role_id,
-      first_name: userData.value.first_name,
-      last_name: userData.value.last_name,
-      email: userData.value.email,
-      phone_code: userData.value.phone_code,
-      phone: userData.value.phone,
-      password: userData.value.password
-    }
-
-     this.api.addUserData(data).subscribe((res: any) => {
-      console.log(res);
-      if (res.message == "Created") {
-        this.toast.primary("User data added")
-        this.employeedata();
-        this.userData.reset()
-      }
-
-    }, (err) => {
-      this.toast.error("Error in adding data" + err.error.message)
-    })
-
+  openUpdateEmployee(row:any){
+    this.dailog.openRef(EditEmployeeComponent,{data:row})
+    
+    
   }
+ 
+  //  user(userData: any) {
+  //   console.log("user data data is", userData);
+
+  //   const data = {
+  //     role_id: userData.value.role_id,
+  //     first_name: userData.value.first_name,
+  //     last_name: userData.value.last_name,
+  //     email: userData.value.email,
+  //     phone_code: userData.value.phone_code,
+  //     phone: userData.value.phone,
+  //     password: userData.value.password
+  //   }
+
+  //    this.api.addUserData(data).subscribe((res: any) => {
+  //     console.log(res);
+  //     if (res.message == "Created") {
+  //       this.toast.primary("User data added")
+  //       this.employeedata();
+  //       this.userData.reset()
+  //     }
+
+  //   }, (err) => {
+  //     this.toast.error("Error in adding data" + err.error.message)
+  //   })
+
+  // }
 
   editdata(data: any) {
+    
     this.userData.controls["role_id"].setValue(data.role_id)
     this.userData.controls["first_name"].setValue(data.first_name)
     this.userData.controls["last_name"].setValue(data.last_name)
@@ -150,6 +164,7 @@ export class EmployeeListComponent implements OnInit {
     this.userData.controls["phone"].setValue(data.phone)
     this.userData.controls["password"].setValue(data.password)
     this.employeeobj.id = data.id;
+
 
   }
   updatedata() {
