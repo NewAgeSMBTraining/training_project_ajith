@@ -4,7 +4,7 @@ import { NbDialogRef } from '@nebular/theme';
 import { DialogComponent } from 'src/app/shared_components/dialog/dialog.component';
 import { ApiService } from 'src/app/service/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { ToastService } from 'src/app/service/toast.service';
 
 @Component({
   selector: 'app-add-employee',
@@ -17,8 +17,9 @@ export class AddEmployeeComponent implements OnInit {
  
 
   constructor(protected ref: NbDialogRef<DialogComponent>, 
-    private fb:FormBuilder, private api:ApiService, 
- 
+    private fb:FormBuilder, 
+    private api:ApiService, 
+    private toast:ToastService
     ) { }
 
   ngOnInit(): void {
@@ -26,11 +27,11 @@ export class AddEmployeeComponent implements OnInit {
       this.roledata()
       this.userData = this.fb.group({
         id: [''],
-        role_id: [''],
+        role_id: ['',Validators.required],
         first_name: ['',Validators.required],
         last_name: ['',Validators.required],
         email: ['',[Validators.required, Validators.email]],
-        phone_code: [''],
+        phone_code: ['', Validators.required],
         phone: ['',[Validators.required,Validators.pattern('[0-9]{10}')]],
         password: ['',[Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)]],
     
@@ -60,13 +61,13 @@ export class AddEmployeeComponent implements OnInit {
      this.api.addUserData(data).subscribe((res: any) => {
       console.log(res);
       if (res.message == "Created") {
-        alert("User data added")
+        this.toast.primary("User data added")
         this.userData.reset();
         
       }
 
     }, (err) => {
-     alert("Error in adding data" + err.error.message)
+     this.toast.error("Error in adding data" + err.error.message)
     })
 
   }

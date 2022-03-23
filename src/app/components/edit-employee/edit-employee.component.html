@@ -6,7 +6,7 @@
             <!--Role id-->
             <div class="mb-3">
               <label>Role ID</label>
-              <input class="form-control" type="number" placeholder="Enter role id" formControlName="role_id">
+              <input class="form-control" type="" placeholder="Enter role id" formControlName="role_id">
             </div>
             <!--First name-->
             <div class="mb-3">
@@ -18,7 +18,13 @@
               <label>Last name</label>
               <input class="form-control" type="text" placeholder="Enter your last name" formControlName="last_name">
             </div>
-  
+              <!--Email-->
+          <div class="mb-3">
+            <label>Email</label>
+            <input class="form-control" id="email" name="email" type="text" placeholder="Enter email"
+              formControlName="email">
+        
+          </div>
             <!--Phone code-->
             <div class="mb-3">
               <label>Phone Code</label>
@@ -34,11 +40,11 @@
           </form>
     </nb-card-body>
     <nb-card-footer>
-        <div class="modal-footer">
-            <button type="button" (click)="dismiss(false)" class="btn btn-secondary" >Close</button>
+        
+            <button type="button" style="margin: 5px;" (click)="dismiss(false)" class="btn btn-secondary" >Close</button>
             <button type="button" (click)="updatedata()"  class="btn btn-primary">Update</button>
       
-          </div>
+         
     </nb-card-footer>
   </nb-card>
   

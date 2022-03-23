@@ -16,51 +16,83 @@
             <label>First name</label>
             <input class="form-control" id="first_name" name="first_name" type="text"
               placeholder="Enter your first name" formControlName="first_name">
-           
+              <span class="text-danger"
+              *ngIf="userData.controls['first_name'].dirty && userData.controls['first_name'].touched && userData.hasError('required','first_name')">First
+              name is required
+            </span>
           </div>
           <!--Last name-->
           <div class="mb-3">
             <label>Last name</label>
             <input class="form-control" id="last_name" name="last_name" type="text" placeholder="Enter your last name"
               formControlName="last_name">
-            
+              <span class="text-danger"
+              *ngIf="userData.controls['last_name'].dirty && userData.controls['last_name'].touched && userData.hasError('required','last_name')">Last
+              name is required
+            </span>
           </div>
           <!--Email-->
           <div class="mb-3">
             <label>Email</label>
             <input class="form-control" id="email" name="email" type="text" placeholder="Enter email"
               formControlName="email">
-        
+              <span class="text-danger"
+              *ngIf="userData.controls['email'].dirty && userData.controls['email'].touched && userData.hasError('required','email')">Email
+              is required
+            </span>
+            <span class="text-danger"
+              *ngIf="userData.controls['email'].dirty && userData.controls['email'].touched && userData.hasError('email','email')">Email
+              format is not correct
+            </span>
           </div>
           <!--Phone code-->
           <div class="mb-3">
             <label>Phone Code</label>
             <input class="form-control" type="text" placeholder="Enter phone code" formControlName="phone_code">
+            <span class="text-danger"
+              *ngIf="userData.controls['phone_code'].dirty && userData.controls['phone_code'].touched && userData.hasError('required','phone_code')">Phone code 
+               is required
+            </span>
           </div>
           <!--Phone number-->
           <div class="mb-3">
             <label>Phone number</label>
             <input class="form-control" id="phone" name="phone" type="text" placeholder="Enter phone number"
               formControlName="phone">
-         
+              <span class="text-danger"
+              *ngIf="userData.controls['phone'].dirty && userData.controls['phone'].touched && userData.hasError('required','phone')">Phone
+              number is required
+            </span>
+            <span class="text-danger"
+              *ngIf="userData.controls['phone'].dirty && userData.controls['phone'].touched && userData.hasError('pattern','phone')">Phone
+              number should be 10 digits
+            </span>
           </div>
           <!--Password-->
           <div class="mb-3">
             <label>Password</label>
             <input class="form-control" id="password" name="password" type="password" placeholder="Enter password"
               formControlName="password">
-           
+              <span class="text-danger"
+              *ngIf="userData.controls['password'].dirty && userData.controls['password'].touched && userData.hasError('required','password')">Password
+              is required
+            </span>
+            <span class="text-danger"
+              *ngIf="userData.controls['password'].dirty && userData.controls['password'].touched && userData.hasError('pattern','password')">Password
+              must contain minimum
+              eight characters, atleast one letter, one number and one special character
+            </span>
           </div>
   
         </form>
       
     </nb-card-body>
     <nb-card-footer>
-      <div class="modal-footer">
-        <button type="button" (click)="dismiss(false)" class="btn btn-secondary" >Close</button>
-        <button type="button" (click)="user(userData)"  class="btn btn-primary">Add</button>
+     
+        <button type="button" style="margin: 5px;" (click)="dismiss(false)" class="btn btn-secondary" >Close</button>
+        <button type="button" [disabled]="!userData.valid" (click)="user(userData)"  class="btn btn-primary">Add</button>
   
-      </div>
+   
     </nb-card-footer>
   </nb-card>
   

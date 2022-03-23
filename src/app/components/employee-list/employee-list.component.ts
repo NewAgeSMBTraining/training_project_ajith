@@ -8,7 +8,6 @@ import { environment } from 'src/environments/environment';
 import { Location } from '@angular/common';
 import { ToastService } from 'src/app/service/toast.service';
 import { DailogService } from 'src/app/service/dialog.service';
-import { DialogComponent } from 'src/app/shared_components/dialog/dialog.component';
 import {  DialogResponse } from 'src/app/model/dialog.model';
 import { AddEmployeeComponent } from '../add-employee/add-employee.component';
 import { EditEmployeeComponent } from '../edit-employee/edit-employee.component';
@@ -50,18 +49,18 @@ export class EmployeeListComponent implements OnInit {
       this.pagination.count = this.pagination.page * this.pagination.limit;
       this.employeedata()
       
-      this.userData = this.fb.group({
-        id: [''],
-        role_id: [''],
-        first_name: ['',Validators.required],
-        last_name: ['',Validators.required],
-        email: ['',[Validators.required, Validators.email]],
-        phone_code: [''],
-        phone: ['',[Validators.required,Validators.pattern('[0-9]{10}')]],
-        password: ['',[Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)]],
+      // this.userData = this.fb.group({
+      //   id: [''],
+      //   role_id: [''],
+      //   first_name: ['',Validators.required],
+      //   last_name: ['',Validators.required],
+      //   email: ['',[Validators.required, Validators.email]],
+      //   phone_code: [''],
+      //   phone: ['',[Validators.required,Validators.pattern('[0-9]{10}')]],
+      //   password: ['',[Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)]],
     
         
-      })
+      // })
     });
     
   }
@@ -121,10 +120,13 @@ export class EmployeeListComponent implements OnInit {
     })
   }
 
-  openUpdateEmployee(row:any){
-    this.dailog.openRef(EditEmployeeComponent,{data:row})
-    
-    
+  openUpdateEmployee(data:any){
+    this.dailog.openRef(EditEmployeeComponent, data).onClose.subscribe(()=>{
+      this.employeedata()
+      
+      
+    })
+           
   }
  
   //  user(userData: any) {
@@ -154,40 +156,6 @@ export class EmployeeListComponent implements OnInit {
 
   // }
 
-  editdata(data: any) {
-    
-    this.userData.controls["role_id"].setValue(data.role_id)
-    this.userData.controls["first_name"].setValue(data.first_name)
-    this.userData.controls["last_name"].setValue(data.last_name)
-    this.userData.controls["email"].setValue(data.email)
-    this.userData.controls["phone_code"].setValue(data.phone_code)
-    this.userData.controls["phone"].setValue(data.phone)
-    this.userData.controls["password"].setValue(data.password)
-    this.employeeobj.id = data.id;
-
-
-  }
-  updatedata() {
-
-    this.employeeobj.role_id = this.userData.value.role_id;
-    this.employeeobj.first_name = this.userData.value.first_name;
-    this.employeeobj.last_name = this.userData.value.last_name;
-    this.employeeobj.email = this.userData.value.email;
-    this.employeeobj.phone_code = this.userData.value.phone_code;
-    this.employeeobj.phone = this.userData.value.phone;
-
-    this.api.editList(this.employeeobj, this.employeeobj.id).subscribe((res) => {
-      console.log(res);
-      if (res.message == "Updated") {
-        this.toast.primary("Employee data updated")
-        this.employeedata();
-
-      }
-    },(err)=>{
-      this.toast.error("Error in updating data" + err.error.message)
-    })
-
-  }
   deletedata(data: any) {
     this.dailog.open({text:'Are you sure you want to delete?'})
     .subscribe((result:DialogResponse)=>{

@@ -1,11 +1,13 @@
 
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef } from '@nebular/theme';
 import { AddUser } from 'src/app/model/adduser.model';
 import { DialogResponse } from 'src/app/model/dialog.model';
 import { ApiService } from 'src/app/service/api.service';
+import { ToastService } from 'src/app/service/toast.service';
 import { DialogComponent } from 'src/app/shared_components/dialog/dialog.component';
+
 
 @Component({
   selector: 'app-edit-employee',
@@ -13,30 +15,48 @@ import { DialogComponent } from 'src/app/shared_components/dialog/dialog.compone
   styleUrls: ['./edit-employee.component.scss']
 })
 export class EditEmployeeComponent implements OnInit {
+  
+  public data:any;
   employeeobj: AddUser = new AddUser;
   userData!: FormGroup;
   constructor(protected ref: NbDialogRef<DialogComponent>,
     
     private fb:FormBuilder,
-    private api:ApiService
+    private api:ApiService,
+    private toast:ToastService
     ) { }
 
   ngOnInit(): void {
     
+    console.log(this.data);
+    
     this.userData = this.fb.group({
-      id: [''],
+      
       role_id: [''],
       first_name: ['',Validators.required],
       last_name: ['',Validators.required],
       email: ['',[Validators.required, Validators.email]],
       phone_code: [''],
       phone: ['',[Validators.required,Validators.pattern('[0-9]{10}')]],
-      password: ['',[Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)]],
+      
       
       
     })
+    ;
     
+   
+    let editData = JSON.parse(this.data)
     
+    if(editData){
+      this.userData.controls['role_id'].setValue(editData.role_id)
+      this.userData.controls['first_name'].setValue(editData.first_name)
+      this.userData.controls['last_name'].setValue(editData.last_name)
+      this.userData.controls['email'].setValue(editData.email)
+      this.userData.controls['phone_code'].setValue(editData.phone_code)
+      this.userData.controls['phone'].setValue(editData.phone)
+      this.employeeobj.id=editData.id
+    }
+ 
     
     
   }
@@ -46,25 +66,18 @@ export class EditEmployeeComponent implements OnInit {
     this.ref.close(result);
   }
  
-
+  
   updatedata() {
 
-    this.employeeobj.role_id = this.userData.value.role_id;
-    this.employeeobj.first_name = this.userData.value.first_name;
-    this.employeeobj.last_name = this.userData.value.last_name;
-    
-    this.employeeobj.phone_code = this.userData.value.phone_code;
-    this.employeeobj.phone = this.userData.value.phone;
-
-    this.api.editList(this.employeeobj, this.employeeobj.id ).subscribe((res) => {
+    this.api.editList(this.userData.value, this.employeeobj.id).subscribe((res) => {
       console.log(res);
       if (res.message == "Updated") {
-        alert("Employee data updated")
+        this.toast.primary("Employee data updated")
        
 
       }
     },(err)=>{
-      alert("Error in updating data" + err.error.message)
+      this.toast.error("Error in updating data" + err.error.message)
     })
 
   }
