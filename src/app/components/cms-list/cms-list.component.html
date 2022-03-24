@@ -1,0 +1,30 @@
+<h3>CMS pages</h3>
+
+
+<table class="table table-bordered">
+    <thead class="table-danger">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Title</th>
+            <th scope="col">Content</th>
+
+        </tr>
+    </thead>
+    
+    <tbody>
+        <tr *ngFor="let list of cmsLists">
+            <td>{{list.id}}</td>
+            <td>{{list.name}}</td>
+            <td>{{list.title}}</td>
+            <td>{{list.content}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- Add employee Button -->
+<div class="text-center ">
+  <a routerLink="/cmsdetails">  <button type="button" class="btn btn-success" >
+      Add 
+    </button> </a>
+  </div>

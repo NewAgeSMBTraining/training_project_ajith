@@ -1,0 +1,35 @@
+<h3>Add details</h3>
+
+<form [formGroup]="addDetails">
+    <div class="mb-3">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" placeholder="Enter name" class="form-control" formControlName="name">
+    </div>
+    <div class="mb-3">
+        <label for="title">Title</label>
+        <input id="title" name="tilte" type="text" placeholder="Enter Title" class="form-control" formControlName="name">
+    </div>
+    
+    <div class="mb-3">
+    <label for="content">Content</label>
+	<ckeditor
+    formControlName="content"
+    [config]="config"
+		id="content"
+		name="content">
+	</ckeditor>
+</div>
+</form>
+
+<button (click)="cmsAdd(addDetails)" class="btn btn-primary">Submit</button>
+
+
+
+
+
+
+
+
+
+
+

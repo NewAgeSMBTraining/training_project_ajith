@@ -9,6 +9,7 @@ import { AuthorizationService } from '../guard/authorization.service';
 import { Otpverify } from '../model/otpverify.model';
 import { Resetpassword } from '../model/resetpassword.model';
 import { ApiResponse} from '../model/apiresponse.model';
+import { Cmsdetails } from '../model/cmsdetails.model';
 
 @Injectable({
   providedIn: 'root'
@@ -168,6 +169,23 @@ resetPassword(data:Resetpassword){
       return res
     })
   )
+}
+
+cmsgetList(){
+  return this.httpclient.get<any>("http://web.newagesme.com:3636/page",this.token()).pipe(
+    map((res)=>{
+      return res
+    })
+  )
+}
+
+cmsaddList(data:Cmsdetails){
+  return this.httpclient.post<any>("http://web.newagesme.com:3636/page",data, this.token()).pipe(
+    map((res)=>{
+      return res
+    })
+  )
+
 }
   errorHandler(e: any): any {
     if (e instanceof HttpErrorResponse) {

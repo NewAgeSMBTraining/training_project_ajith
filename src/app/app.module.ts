@@ -23,7 +23,10 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { DialogComponent } from './shared_components/dialog/dialog.component';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
-
+import { CmsListComponent } from './components/cms-list/cms-list.component';
+import { CmsDetailsComponent } from './components/cms-details/cms-details.component';
+import { FormsModule } from '@angular/forms';
+import { CKEditorModule } from 'ng2-ckeditor';
 
 
 
@@ -40,7 +43,9 @@ import { EditEmployeeComponent } from './components/edit-employee/edit-employee.
     ResetPasswordComponent,
     DialogComponent,
     AddEmployeeComponent,
-    EditEmployeeComponent
+    EditEmployeeComponent,
+    CmsListComponent,
+    CmsDetailsComponent
     
     
   ],
@@ -59,7 +64,9 @@ import { EditEmployeeComponent } from './components/edit-employee/edit-employee.
     LayoutModule,
     NbToastrModule.forRoot(),
     NbDialogModule.forRoot(),
-    NbCardModule
+    NbCardModule,
+    CKEditorModule,
+    FormsModule
     
     
   ],
