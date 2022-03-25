@@ -7,7 +7,7 @@
     </div>
     <div class="mb-3">
         <label for="title">Title</label>
-        <input id="title" name="tilte" type="text" placeholder="Enter Title" class="form-control" formControlName="name">
+        <input id="title" name="tilte" type="text" placeholder="Enter Title" class="form-control" formControlName="title">
     </div>
     
     <div class="mb-3">
@@ -21,7 +21,8 @@
 </div>
 </form>
 
-<button (click)="cmsAdd(addDetails)" class="btn btn-primary">Submit</button>
+<button *ngIf="btnshowSubmit" (click)="cmsAdd(addDetails)" class="btn btn-primary">Submit</button>
+<button *ngIf="btnshowUpdate" (click)="cmsUpdate()" class="btn btn-primary">Update</button>
 
 
 

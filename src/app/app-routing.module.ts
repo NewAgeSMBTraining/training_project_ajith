@@ -25,8 +25,8 @@ const routes: Routes = [
   {path:'resetpassword', component:ResetPasswordComponent},
   {path:'dashboard', component:DashboardComponent},
   {path:'cmslist', component:CmsListComponent},
-  {path:'cmsdetails', component:CmsDetailsComponent}
-
+  {path:'cmsdetails', component:CmsDetailsComponent},
+  {path:'cmsdetails/:id', component:CmsDetailsComponent}
 ];
 
 @NgModule({

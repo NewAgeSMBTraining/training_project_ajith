@@ -8,6 +8,7 @@
             <th scope="col">Name</th>
             <th scope="col">Title</th>
             <th scope="col">Content</th>
+            <th scope="col">Action</th>
 
         </tr>
     </thead>
@@ -17,7 +18,10 @@
             <td>{{list.id}}</td>
             <td>{{list.name}}</td>
             <td>{{list.title}}</td>
-            <td>{{list.content}}</td>
+            <td [innerHTML]="list.content"></td>
+            <td>
+               <a routerLink="/cmsdetails/{{list.id}}"> <button class="btn btn-warning">Edit</button></a>
+            </td>
         </tr>
     </tbody>
 </table>

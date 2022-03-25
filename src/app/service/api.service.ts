@@ -10,6 +10,7 @@ import { Otpverify } from '../model/otpverify.model';
 import { Resetpassword } from '../model/resetpassword.model';
 import { ApiResponse} from '../model/apiresponse.model';
 import { Cmsdetails } from '../model/cmsdetails.model';
+import { NbDayPeriod } from '@nebular/theme';
 
 @Injectable({
   providedIn: 'root'
@@ -181,6 +182,22 @@ cmsgetList(){
 
 cmsaddList(data:Cmsdetails){
   return this.httpclient.post<any>("http://web.newagesme.com:3636/page",data, this.token()).pipe(
+    map((res)=>{
+      return res
+    })
+  )
+
+}
+getCurrentPage(id:number){
+  return this.httpclient.get<any>("http://web.newagesme.com:3636/page/"+id,this.token()).pipe(
+    map((res)=>{
+      return res
+    })
+  )
+  
+}
+cmsupdateList(data:any, id:number){
+  return this.httpclient.put<any>("http://web.newagesme.com:3636/page/"+id,data,this.token()).pipe(
     map((res)=>{
       return res
     })
