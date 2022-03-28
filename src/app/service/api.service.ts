@@ -204,6 +204,29 @@ cmsupdateList(data:any, id:number){
   )
 
 }
+templategetList(){
+  return this.httpclient.get<any>("http://web.newagesme.com:3636/template",this.token()).pipe(
+    map((res)=>{
+      return res
+    })
+  )
+}
+getcurrenttemplatePage(id:number){
+  return this.httpclient.get<any>("http://web.newagesme.com:3636/template/"+id,this.token()).pipe(
+    map((res)=>{
+      return res
+    })
+  )
+}
+
+templateupdateList(data:any, id:number){
+  return this.httpclient.put<any>("http://web.newagesme.com:3636/template/"+id,data,this.token()).pipe(
+    map((res)=>{
+      return res
+    })
+  )
+}
+
   errorHandler(e: any): any {
     if (e instanceof HttpErrorResponse) {
       return e.status ? { error: e.error, message: e.error?.message || 'network error' } : { error: e, message: 'network error' };

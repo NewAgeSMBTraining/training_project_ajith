@@ -25,7 +25,8 @@ export class CmsDetailsComponent implements OnInit {
       id:[''],
       name:[''],
       title:[''],
-      content:['']
+      content:[''],
+      
     })
   
     

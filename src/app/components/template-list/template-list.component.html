@@ -1,0 +1,26 @@
+<h3>Email templates</h3>
+<table class="table table-bordered">
+    <thead class="table-danger">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Title</th>
+            <th scope="col">Send Email</th>
+            <th scope="col">Send SMS</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let list of templateList"> 
+            <td>{{list.id}}</td>
+            <td>{{list.name}}</td>
+            <td>{{list.title}}</td>
+            <td>{{list.send_email}}</td>
+            <td>{{list.send_sms}}</td>
+            <td>
+               <a routerLink="/templatedetails/{{list.id}}"><button class="btn btn-warning">Edit</button></a> 
+            </td>
+        </tr>
+    </tbody>
+</table>

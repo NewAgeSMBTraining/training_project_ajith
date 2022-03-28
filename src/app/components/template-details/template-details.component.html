@@ -1,0 +1,40 @@
+<h3>Template Details</h3>
+
+<form [formGroup]="templateForm">
+    <div class="mb-3">
+    <label for="name">Name</label>
+    <input id="name" name="name" type="text" class="form-control" formControlName="name">
+    </div>
+
+    <div class="mb-3">
+    <label for="title">Title</label>
+    <input id="title" name="title" type="text" class="form-control" formControlName="title">
+    </div>
+    
+   
+<div [hidden]="">
+    <div class="mb-3">
+    <label for="emailsubject">Email Subject</label>
+    <input id="emailsubject" name="emailsubject" type="text" class="form-control" formControlName="email_subject">
+    </div>
+
+    <div class="mb-3">
+        <label for="emailbody">Email body</label>
+        <ckeditor
+        formControlName="email_body"
+        [config]="config"
+            id="emailbody"
+            name="emailbody">
+        </ckeditor>
+    </div>
+</div>
+   
+
+    <div class="mb-3">
+    <label for="smsbody">Sms body</label>
+    <input id="smsbody" name="smsbody" type="text" class="form-control" formControlName="sms_body">
+</div>
+
+</form>
+
+<button (click)="updateTemplate()" type="submit" class="btn btn-primary">Update</button>

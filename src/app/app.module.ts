@@ -27,6 +27,8 @@ import { CmsListComponent } from './components/cms-list/cms-list.component';
 import { CmsDetailsComponent } from './components/cms-details/cms-details.component';
 import { FormsModule } from '@angular/forms';
 import { CKEditorModule } from 'ng2-ckeditor';
+import { TemplateListComponent } from './components/template-list/template-list.component';
+import { TemplateDetailsComponent } from './components/template-details/template-details.component';
 
 
 
@@ -45,7 +47,9 @@ import { CKEditorModule } from 'ng2-ckeditor';
     AddEmployeeComponent,
     EditEmployeeComponent,
     CmsListComponent,
-    CmsDetailsComponent
+    CmsDetailsComponent,
+    TemplateListComponent,
+    TemplateDetailsComponent
     
     
   ],

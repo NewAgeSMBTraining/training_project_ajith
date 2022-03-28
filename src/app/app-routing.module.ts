@@ -11,6 +11,8 @@ import { AuthorizationGuard } from './guard/authorization.guard';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { CmsListComponent } from './components/cms-list/cms-list.component';
 import { CmsDetailsComponent } from './components/cms-details/cms-details.component';
+import { TemplateListComponent } from './components/template-list/template-list.component';
+import { TemplateDetailsComponent } from './components/template-details/template-details.component';
 
 
 
@@ -26,7 +28,9 @@ const routes: Routes = [
   {path:'dashboard', component:DashboardComponent},
   {path:'cmslist', component:CmsListComponent},
   {path:'cmsdetails', component:CmsDetailsComponent},
-  {path:'cmsdetails/:id', component:CmsDetailsComponent}
+  {path:'cmsdetails/:id', component:CmsDetailsComponent},
+  {path:'templatelist', component:TemplateListComponent},
+  {path:'templatedetails/:id', component:TemplateDetailsComponent}
 ];
 
 @NgModule({
