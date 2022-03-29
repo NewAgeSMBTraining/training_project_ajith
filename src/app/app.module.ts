@@ -29,6 +29,7 @@ import { FormsModule } from '@angular/forms';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { TemplateListComponent } from './components/template-list/template-list.component';
 import { TemplateDetailsComponent } from './components/template-details/template-details.component';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 
 
@@ -49,7 +50,8 @@ import { TemplateDetailsComponent } from './components/template-details/template
     CmsListComponent,
     CmsDetailsComponent,
     TemplateListComponent,
-    TemplateDetailsComponent
+    TemplateDetailsComponent,
+    FileUploadComponent
     
     
   ],

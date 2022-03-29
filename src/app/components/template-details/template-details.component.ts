@@ -14,6 +14,8 @@ export class TemplateDetailsComponent implements OnInit {
   emp:any
   config:any
   templateForm!:FormGroup
+  send_email: any;
+  send_sms:any;
   constructor(private fb:FormBuilder, private api:ApiService, private _router:ActivatedRoute, private toast:ToastService, private router:Router) { }
 
   ngOnInit(): void {
@@ -25,11 +27,14 @@ export class TemplateDetailsComponent implements OnInit {
       email_subject:[''],
       email_body:[''],
       sms_body:[''],
-    
+      send_email: Boolean,
+      send_sms: Boolean
+
     })
    
   }
-
+ 
+  
   editTemplate(){
     
     this.api.getcurrenttemplatePage(this._router.snapshot.params['id']).subscribe((res)=>{
@@ -39,7 +44,9 @@ export class TemplateDetailsComponent implements OnInit {
       this.templateForm.controls['email_subject'].setValue(res.data.template.email_subject)
       this.templateForm.controls['email_body'].setValue(res.data.template.email_body)
       this.templateForm.controls['sms_body'].setValue(res.data.template.sms_body)
-     
+      this.templateForm.controls['send_email'].setValue(res.data.template.send_email)
+      this.templateForm.controls['send_sms'].setValue(res.data.template.send_sms)
+ 
   
     })
     

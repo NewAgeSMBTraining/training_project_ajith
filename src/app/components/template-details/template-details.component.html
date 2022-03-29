@@ -11,8 +11,12 @@
     <input id="title" name="title" type="text" class="form-control" formControlName="title">
     </div>
     
+    <div class="form-check">
+        <label class="form-check-label" for="send_email">Send_email?</label>
+        <input  type="checkbox" [(ngModel)]="send_email" class="form-check-input" id="send_email" formControlName="send_email">
+    </div>
    
-<div [hidden]="">
+    <div *ngIf="send_email">
     <div class="mb-3">
     <label for="emailsubject">Email Subject</label>
     <input id="emailsubject" name="emailsubject" type="text" class="form-control" formControlName="email_subject">
@@ -27,10 +31,15 @@
             name="emailbody">
         </ckeditor>
     </div>
-</div>
-   
 
-    <div class="mb-3">
+</div>
+<div class="form-check">
+    <label class="form-check-label" for="send_sms">Send_sms?</label>
+    <input [(ngModel)]="send_sms" type="checkbox" class="form-check-input" id="send_sms" formControlName="send_sms">
+</div>
+
+
+    <div *ngIf="send_sms" class="mb-3">
     <label for="smsbody">Sms body</label>
     <input id="smsbody" name="smsbody" type="text" class="form-control" formControlName="sms_body">
 </div>

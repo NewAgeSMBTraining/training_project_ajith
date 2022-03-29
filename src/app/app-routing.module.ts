@@ -13,6 +13,7 @@ import { CmsListComponent } from './components/cms-list/cms-list.component';
 import { CmsDetailsComponent } from './components/cms-details/cms-details.component';
 import { TemplateListComponent } from './components/template-list/template-list.component';
 import { TemplateDetailsComponent } from './components/template-details/template-details.component';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 
 
@@ -25,12 +26,12 @@ const routes: Routes = [
   {path:'forgotpassword', component:ForgotPasswordComponent},
   {path:'otpverification', component:OtpVerificationComponent},
   {path:'resetpassword', component:ResetPasswordComponent},
-  {path:'dashboard', component:DashboardComponent},
-  {path:'cmslist', component:CmsListComponent},
-  {path:'cmsdetails', component:CmsDetailsComponent},
-  {path:'cmsdetails/:id', component:CmsDetailsComponent},
-  {path:'templatelist', component:TemplateListComponent},
-  {path:'templatedetails/:id', component:TemplateDetailsComponent}
+  {path:'cmslist', component:CmsListComponent, canActivate:[AuthorizationGuard]},
+  {path:'cmsdetails', component:CmsDetailsComponent, canActivate:[AuthorizationGuard]},
+  {path:'cmsdetails/:id', component:CmsDetailsComponent, canActivate:[AuthorizationGuard]},
+  {path:'templatelist', component:TemplateListComponent, canActivate:[AuthorizationGuard]},
+  {path:'templatedetails/:id', component:TemplateDetailsComponent, canActivate:[AuthorizationGuard]},
+  {path:'upload', component:FileUploadComponent}
 ];
 
 @NgModule({
