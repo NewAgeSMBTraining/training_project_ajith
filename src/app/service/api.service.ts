@@ -227,6 +227,25 @@ templateupdateList(data:any, id:number){
   )
 }
 
+uploadFile(formData:any){
+  return this.httpclient.post("https://webhook.site/189c79f9-4122-44e5-b6bd-c037c17a9b6f",formData,{
+    reportProgress:true,
+    observe:'events'
+  }).pipe(
+    map((res)=>{
+      return res
+    })
+  )
+}
+
+// file(){
+//   return this.httpclient.get("https://slack.com/api/files.list").pipe(
+//     map((res)=>{
+//       return res
+//     })
+//   )
+// }
+
   errorHandler(e: any): any {
     if (e instanceof HttpErrorResponse) {
       return e.status ? { error: e.error, message: e.error?.message || 'network error' } : { error: e, message: 'network error' };

@@ -30,6 +30,7 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import { TemplateListComponent } from './components/template-list/template-list.component';
 import { TemplateDetailsComponent } from './components/template-details/template-details.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { AngularFileUploaderModule } from "angular-file-uploader";
 
 
 
@@ -72,7 +73,8 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
     NbDialogModule.forRoot(),
     NbCardModule,
     CKEditorModule,
-    FormsModule
+    FormsModule,
+    AngularFileUploaderModule
     
     
   ],

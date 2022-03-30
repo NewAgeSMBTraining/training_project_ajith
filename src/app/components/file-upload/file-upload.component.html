@@ -1,6 +1,6 @@
-<h3>File upload</h3>
+<!-- <h3>File upload</h3>
 
-<form [formGroup]="uploadForm">
+<form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
 
 <div class="mb-3">
     <label>Name</label>
@@ -8,11 +8,18 @@
 </div>
 
 <div class="mb-3">
-    <label>File</label>
-    <input type="file" class="form-control" id="profile" name="profile" (change)="onSelectedFile($event)">
+<label>File</label>
+<input type="file" class="form-control" name="" (change)="SelectedFile($event)">
 </div>
 
-<div class="mb-3">
-    <button class="btn btn-primary" type="submit">Upload</button>
-</div>
+<button type="submit" class="btn btn-primary">Upload</button>
+
 </form>
+ -->
+ <h3>File upload</h3>
+ <div class="mb-3">
+<label class="btn btn-default">File </label>
+    <input type="file" class="form-control" (change)="selectFile($event)"> 
+
+</div>
+<button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
