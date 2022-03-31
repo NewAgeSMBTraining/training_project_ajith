@@ -2,16 +2,19 @@
 <table class="table table-bordered">
     <thead>
       <tr class="table-danger">
+        <th scope="col">Pic</th>
         <th scope="col">ID</th>
         <th scope="col">Role id</th>
         <th scope="col">Employee name</th>
         <th scope="col">Email</th>
         <th scope="col">Mobile</th>
         <th scope="col">Actions</th>
+        
       </tr>
     </thead>
     <tbody>
       <tr >
+        <td><img src="{{employeeData.image}}" /></td>
         <td>{{employeeData.id}}</td>
         <td>{{employeeData.role_id}}</td>
         <td>{{employeeData.full_name}}</td>
@@ -23,7 +26,10 @@
 
            <a routerLink="/changepassword"><button  style="margin: 5px;" type="button" class="btn btn-warning">Change password</button></a>
             
-        </td>              
+         
+        </td>   
+        
+       
 </tr>    
 </tbody>
 
@@ -33,7 +39,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -41,7 +47,7 @@
            <!--Role id-->
            <div class="mb-3">
             <label>Role ID</label>
-            <input class="form-control" type="number" placeholder="Enter role id" formControlName="role_id">
+            <input class="form-control" type="text" placeholder="Enter role id" formControlName="role_id">
           </div>
           <!--First name-->
           <div class="mb-3">
@@ -70,8 +76,18 @@
             <label>Phone number</label>
             <input class="form-control" type="text" placeholder="Enter phone number" formControlName="phone">
           </div>
+
+          <div class="mb-3">
+            <label>Change Picture </label>
+              <input type="file" class="form-control" (change)="selectFile($event)" > 
+           
+            <br>
+            <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
+          </div>
+
         </form>
         </div>
+
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button type="button" (click)="updatelist()" class="btn btn-primary">Save changes</button>

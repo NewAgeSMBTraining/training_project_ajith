@@ -17,6 +17,7 @@ export class LogUser{
     email!:string;
     phone_code!:string;
     phone!:string;
+  image!: any;
     
 }
 

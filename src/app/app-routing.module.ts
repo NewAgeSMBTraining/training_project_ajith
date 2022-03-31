@@ -31,7 +31,7 @@ const routes: Routes = [
   {path:'cmsdetails/:id', component:CmsDetailsComponent, canActivate:[AuthorizationGuard]},
   {path:'templatelist', component:TemplateListComponent, canActivate:[AuthorizationGuard]},
   {path:'templatedetails/:id', component:TemplateDetailsComponent, canActivate:[AuthorizationGuard]},
-  {path:'upload', component:FileUploadComponent}
+  {path:'upload', component:FileUploadComponent, canActivate:[AuthorizationGuard]}
 ];
 
 @NgModule({

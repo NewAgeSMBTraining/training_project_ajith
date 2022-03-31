@@ -31,7 +31,7 @@ import { TemplateListComponent } from './components/template-list/template-list.
 import { TemplateDetailsComponent } from './components/template-details/template-details.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { AngularFileUploaderModule } from "angular-file-uploader";
-
+import {ImageCropperModule} from 'ngx-image-cropper'
 
 
 @NgModule({
@@ -74,7 +74,8 @@ import { AngularFileUploaderModule } from "angular-file-uploader";
     NbCardModule,
     CKEditorModule,
     FormsModule,
-    AngularFileUploaderModule
+    AngularFileUploaderModule,
+    ImageCropperModule
     
     
   ],

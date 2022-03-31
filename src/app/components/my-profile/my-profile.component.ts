@@ -3,6 +3,7 @@ import { ApiService } from 'src/app/service/api.service';
 import { FormBuilder } from '@angular/forms';
 import { LogUser } from 'src/app/model/adduser.model';
 import { ToastService } from 'src/app/service/toast.service';
+import { UploadService } from 'src/app/service/upload.service';
 
 @Component({
   selector: 'app-my-profile',
@@ -10,14 +11,17 @@ import { ToastService } from 'src/app/service/toast.service';
   styleUrls: ['./my-profile.component.scss']
 })
 export class MyProfileComponent implements OnInit {
-  
-  
+ url:any;
+  selectedFiles:any;
   employeeData: any = [];
   updateObj: LogUser = new LogUser
-  constructor(private api:ApiService, private fb:FormBuilder, private toast:ToastService) { }
+  constructor(private api:ApiService, private fb:FormBuilder, private toast:ToastService, private uploadService:UploadService) { }
 
   ngOnInit(): void {
     this.loggedinUser()
+ 
+   
+    
     //this.log()
   }
 updateUser=this.fb.group({
@@ -28,6 +32,7 @@ updateUser=this.fb.group({
   email:[''],
   phone_code: [''],
   phone: [''],
+  
  
   
 })
@@ -52,6 +57,8 @@ edit(data:any){
   this.updateUser.controls["phone_code"].setValue(data.phone_code)
   this.updateUser.controls["phone"].setValue(data.phone)
   
+  
+  
 }
 
 updatelist() {
@@ -62,6 +69,8 @@ updatelist() {
   this.updateObj.email = this.updateUser.value.email;
   this.updateObj.phone_code = this.updateUser.value.phone_code;
   this.updateObj.phone = this.updateUser.value.phone;
+  this.updateObj.image = this.url;
+
 
   this.api.updateLoggedinDetails(this.updateObj).subscribe((res) => {
     console.log(res);
@@ -74,10 +83,27 @@ updatelist() {
   })
 
 }
+ async upload() {
+  const file = this.selectedFiles.item(0);
+ await this.uploadService.uploadFile(file);
+
+ this.url = this.uploadService.data.Location;
+  
+  console.log(this.url);
+  
+  
+  
+  }
+  
+  selectFile(event:any) {
+  this.selectedFiles = event.target.files;
+  
+  
+  }
+    }
 
 
 
-}
 
 //storing in localstorage
 // log(){

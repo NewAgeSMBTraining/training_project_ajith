@@ -19,7 +19,10 @@
  <h3>File upload</h3>
  <div class="mb-3">
 <label class="btn btn-default">File </label>
+<img src="{{location}}">
     <input type="file" class="form-control" (change)="selectFile($event)"> 
 
 </div>
+
+
 <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>

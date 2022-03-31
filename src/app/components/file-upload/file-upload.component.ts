@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { log } from 'console';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { UploadService } from 'src/app/service/upload.service';
 
 @Component({
@@ -43,6 +44,10 @@ export class FileUploadComponent implements OnInit {
 //   })
 // }
 selectedFiles!: any;
+message:any;
+imagePath:any;
+location:any
+
 constructor(private uploadService:UploadService){}
 
 ngOnInit(): void {
@@ -57,7 +62,21 @@ upload(){
 }
 selectFile(event:any){
   this.selectedFiles = event.target.files
-  
+  if(this.selectedFiles===0)
+  return
+  const mimeType = this.selectedFiles[0].type;
+  if(mimeType.match(/image\/*/)==null){
+    alert("only images are supported");
+    return
+  }
+  const reader = new FileReader()
+  this.imagePath = this.selectedFiles;
+  reader.readAsDataURL(this.selectedFiles[0])
+  reader.onload=(_event)=>{
+    this.location = reader.result;
+  }
   
 }
+
+
 }
