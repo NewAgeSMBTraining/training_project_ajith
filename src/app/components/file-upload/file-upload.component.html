@@ -16,13 +16,35 @@
 
 </form>
  -->
+ <form [formGroup]="UploadForm">
  <h3>File upload</h3>
  <div class="mb-3">
 <label class="btn btn-default">File </label>
-<img src="{{location}}">
-    <input type="file" class="form-control" (change)="selectFile($event)"> 
+
+    <input type="file" class="form-control" (change)="fileChangeEvent($event)" formControlName="file"> 
 
 </div>
 
+<div class="mb-3">
 
-<button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
+<h3>Crop Image</h3>
+<image-cropper 
+[imageChangedEvent]="imageChangedEvent" 
+[maintainAspectRatio]="true" 
+[aspectRatio]="4/4"
+[resizeToWidth]="256" 
+format="png" 
+(imageCropped)="imageCropped($event)" 
+(imageLoaded)="imageLoaded()"
+(cropperReady)="cropperReady()" 
+(loadImageFailed)="loadImageFailed()"></image-cropper>
+</div>
+
+<div class="mb-3">
+<h3>Preview</h3>
+<img [src]="croppedImage" />
+</div>
+
+<button class="btn btn-success"  (click)="upload()" >Upload</button>
+<button style="margin: 5px;" class="btn btn-danger" (click)="refresh()">Reset</button>
+</form>

@@ -71,6 +71,7 @@ data :any = [];
     console.log(res);
 
     this.data = res
+  
 
   } catch (err) {
     this.toast.error(JSON.stringify("error"+err))
