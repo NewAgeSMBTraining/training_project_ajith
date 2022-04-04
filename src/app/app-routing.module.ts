@@ -14,6 +14,7 @@ import { CmsDetailsComponent } from './components/cms-details/cms-details.compon
 import { TemplateListComponent } from './components/template-list/template-list.component';
 import { TemplateDetailsComponent } from './components/template-details/template-details.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 
 
@@ -31,7 +32,8 @@ const routes: Routes = [
   {path:'cmsdetails/:id', component:CmsDetailsComponent, canActivate:[AuthorizationGuard]},
   {path:'templatelist', component:TemplateListComponent, canActivate:[AuthorizationGuard]},
   {path:'templatedetails/:id', component:TemplateDetailsComponent, canActivate:[AuthorizationGuard]},
-  {path:'upload', component:FileUploadComponent, canActivate:[AuthorizationGuard]}
+  {path:'upload', component:FileUploadComponent, canActivate:[AuthorizationGuard]},
+  {path:'settings', component:SettingsComponent}
 ];
 
 @NgModule({

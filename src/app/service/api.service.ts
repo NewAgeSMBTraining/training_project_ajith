@@ -11,6 +11,7 @@ import { Resetpassword } from '../model/resetpassword.model';
 import { ApiResponse} from '../model/apiresponse.model';
 import { Cmsdetails } from '../model/cmsdetails.model';
 import { NbDayPeriod } from '@nebular/theme';
+import { Settings } from '../model/settings.model';
 
 @Injectable({
   providedIn: 'root'
@@ -232,6 +233,22 @@ uploadFile(formData:any){
     reportProgress:true,
     observe:'events'
   }).pipe(
+    map((res)=>{
+      return res
+    })
+  )
+}
+
+getSettings(){
+  return this.httpclient.get<any>("http://web.newagesme.com:3636/setting",this.token()).pipe(
+    map((res)=>{
+      return res
+    })
+  )
+}
+
+postSettings(data:Settings){
+  return this.httpclient.post<any>("http://web.newagesme.com:3636/setting/bulk/",data,this.token()).pipe(
     map((res)=>{
       return res
     })

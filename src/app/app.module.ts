@@ -31,7 +31,8 @@ import { TemplateListComponent } from './components/template-list/template-list.
 import { TemplateDetailsComponent } from './components/template-details/template-details.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { AngularFileUploaderModule } from "angular-file-uploader";
-import {ImageCropperModule} from 'ngx-image-cropper'
+import {ImageCropperModule} from 'ngx-image-cropper';
+import { SettingsComponent } from './components/settings/settings.component'
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import {ImageCropperModule} from 'ngx-image-cropper'
     CmsDetailsComponent,
     TemplateListComponent,
     TemplateDetailsComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    SettingsComponent
     
     
   ],
