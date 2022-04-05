@@ -1,0 +1,8 @@
+<form [formGroup]="ContactForm">
+<div *ngFor="let data of formData">
+<label>{{data.label}}</label>
+<input type="text" formControlName="{{data.label}}">
+</div>
+
+</form>
+<div>{{ContactForm.value | json}}</div>

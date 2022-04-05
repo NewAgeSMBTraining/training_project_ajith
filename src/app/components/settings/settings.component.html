@@ -2,25 +2,8 @@
 
 
 
-<!-- <div class="mb-3">
-    <label>ID</label>
-    <input type="text" class="form-control" formControlName="id">
-</div>  
-
-<div class="mb-3">
-    <label>Name</label>
-    <input type="text" class="form-control" formControlName="name">
-</div>
-
-<div class="mb-3">
-    <label>Display name</label>
-    <input type="text" class="form-control" formControlName="display_name"> 
-</div> -->
-
-<form [formGroup]="settingsForm">
-<div *ngFor="let setting of settings" class="mb-3">
-    <label>{{setting.display_name}}</label>
-    <input type="text" class="form-control" value="{{setting.value}}" >
-</div>
-<button >Add</button>
-</form>
+    <div *ngFor="let setting of settings"class="mb-3">
+        <label>{{setting.display_name}}</label>
+        <input type="text" class="form-control" [(ngModel)]="setting.value"> 
+    </div>
+<button class="btn btn-success" (click)="postList()">Update</button>

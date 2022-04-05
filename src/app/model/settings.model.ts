@@ -1,4 +1,5 @@
 export interface Settings {
-    value:string;
+    value:any;
+    id:any;
     
 }

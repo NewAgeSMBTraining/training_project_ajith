@@ -247,8 +247,10 @@ getSettings(){
   )
 }
 
-postSettings(data:Settings){
-  return this.httpclient.post<any>("http://web.newagesme.com:3636/setting/bulk/",data,this.token()).pipe(
+
+
+postSettings(data:any){
+  return this.httpclient.post<any>("http://web.newagesme.com:3636/setting/bulk",data,this.token()).pipe(
     map((res)=>{
       return res
     })
